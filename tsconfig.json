@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "esnext",
+    "newLine": "LF",
+    "useDefineForClassFields": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "Fragment",
+    "lib": ["esnext", "dom"],
+    "types": ["node", "vitest"],
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "paths": {
+      "minditor": ["src"],
+      "@test": ["tests"]
+    }
+  },
+  "include": [
+    "global.d.ts",
+    "src",
+    "jsx.d.ts",
+    "experiment/**/*",
+    "editor.tsx",
+    "tests/**/*",
+    "index.tsx",
+    "playground.tsx",
+    "sandbox.tsx",
+    "__test__",
+    "vite.prod.config.ts",
+    "vite.site.config.ts"
+  ]
+
+}
