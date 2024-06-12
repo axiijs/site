@@ -7,7 +7,7 @@
     "newLine": "LF",
     "useDefineForClassFields": false,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowJs": true,
     "strict": true,
     "noUnusedLocals": false,
@@ -23,8 +23,6 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "paths": {
-      "minditor": ["src"],
-      "@test": ["tests"]
     }
   },
   "include": [

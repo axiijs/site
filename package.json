@@ -2,16 +2,28 @@
   "name": "axii-site",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
-    "start": "vite"
+    "start": "tsx scripts/dev.ts"
   },
   "dependencies": {
+    "@babel/standalone": "^7.24.5",
+    "@codemirror/commands": "^6.6.0",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/view": "^6.28.0",
+    "@types/babel__standalone": "^7.1.7",
     "@types/node": "^20.11.30",
-    "axii": "^2.0.47",
-    "minditor": "^1.0.12",
-    "monaco-editor": "^0.47.0"
+    "axii": "^2.6.11",
+    "axii-ui": "^1.0.2",
+    "codemirror": "^6.0.1",
+    "minditor": "^1.0.18",
+    "monaco-editor": "^0.48.0",
+    "thememirror": "^2.0.1"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.20.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.15.2",
     "typescript": "^5.4.3",
     "vite": "^5.2.6"
   }

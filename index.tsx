@@ -1,5 +1,4 @@
 import {
-    Code,
     createBlockTool,
     createRangeTool,
     createSuggestionTool,
@@ -16,6 +15,7 @@ import {
     Paragraph,
     scaffold,
     Text,
+    Code,
     ULItem, DocumentData,
     createTOCTool
 } from "minditor";
@@ -33,7 +33,7 @@ if (language === 'cn') {
     fetchResult = await fetch('readme_cn.json')
 } else {
     // @ts-ignore
-    fetchResult = await fetch('readme_en.json')
+    fetchResult = await fetch('readme_en.mdt.json')
 }
 const jsonData = await fetchResult.json() as DocumentData
 

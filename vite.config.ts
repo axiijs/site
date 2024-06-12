@@ -1,4 +1,5 @@
 import {resolve} from "path";
+import {fileURLToPath, URL} from "url";
 
 export default {
   esbuild: {
@@ -8,11 +9,13 @@ export default {
   build: {
     lib: {
       // Could also be a dictionary or array of multiple entry points
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'minditor',
-      // the proper extensions will be added
-      fileName: 'index',
     },
+  },
+  resolve: {
+    alias: {
+      // 'axii': fileURLToPath(new URL('../axii/src/index.ts', import.meta.url)),
+      // 'data0': fileURLToPath(new URL('../data0/src/index.ts', import.meta.url)),
+    }
   },
   define: {
     __DEV__: false,

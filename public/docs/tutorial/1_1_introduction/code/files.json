@@ -1,0 +1,4 @@
+{
+  "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+  "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+}
