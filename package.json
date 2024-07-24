@@ -13,7 +13,7 @@
     "@codemirror/view": "^6.28.0",
     "@types/babel__standalone": "^7.1.7",
     "@types/node": "^20.11.30",
-    "axii": "^2.6.11",
+    "axii": "^2.6.14",
     "axii-ui": "^1.0.2",
     "codemirror": "^6.0.1",
     "minditor": "^1.0.18",

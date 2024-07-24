@@ -8,6 +8,13 @@ export function renderSandbox( code: string) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Preview</title>
   <style>
+    body{
+        outline: none;
+        border: none;
+        background: rgba(20,20,20);
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
     * {
       padding: 0;
       margin: 0;
