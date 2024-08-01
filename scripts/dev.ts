@@ -1,6 +1,8 @@
 import { cp, readdir, readFile, writeFile } from 'fs/promises'
 import { execSync } from "node:child_process";
-import {createServer} from "vite";
+import {createServer, InlineConfig} from "vite";
+import {default as config} from '../vite.config'
+import {mkdirSync} from "fs";
 
 async function generateFilesJSON(folder: string) {
     const contents: {[k:string]: string} = {}
@@ -14,28 +16,57 @@ async function generateFilesJSON(folder: string) {
 }
 
 
-// 1. copy docs/tutorials 下所有文件到 public 下
-execSync('rm -rf public/docs')
-execSync('cp -r docs public/docs')
+
 
 // 2. 将 public/docs/tutorial 下所有文件夹里的 code 下的所有文件合成一个 files.json 文件
 // 遍历 tutorial 下的所有文件夹
-const tutorialFolders = await readdir('public/docs/tutorial')
-for (const folder of tutorialFolders) {
-    const codeFolder = `public/docs/tutorial/${folder}/code`
-    // 判断是否存在 codeFolder
-    try {
-        await readdir(codeFolder)
-    } catch (e) {
-        continue
+const tutorialBase = 'docs/tutorial'
+const chapters = []
+for (const chapter of await readdir(tutorialBase)) {
+    const sections = []
+    for(const section of await readdir(`${tutorialBase}/${chapter}`)) {
+        const codeFolder = `${tutorialBase}/${chapter}/${section}/code`
+        // 判断是否存在 codeFolder
+        try {
+            await readdir(codeFolder)
+        } catch (e) {
+            continue
+        }
+        const files = await generateFilesJSON(codeFolder)
+        sections.push({
+            name: section,
+            files
+        })
     }
-    const files = await generateFilesJSON(codeFolder)
-    // 在同一个目录下创建 files.json 并写入
-    await writeFile(`${codeFolder}/files.json`, JSON.stringify(files, null, 2))
+    chapters.push({
+        name:chapter,
+        sections
+    })
 }
 
+// 1. copy docs/tutorials 下所有文件到 public 下
+const publicBase = 'public/docs/tutorial'
+execSync(`rm -rf ${publicBase}`)
+// 如果 public/docs/tutorial 不存在，创建它
+await mkdirSync(publicBase, {recursive: true})
+await writeFile(`${publicBase}/files.json`, JSON.stringify(chapters, null, 2))
 
-const server = await createServer({})
+
+const server = await createServer({
+    plugins: [
+        {
+            name: 'rewrite-middleware',
+            configureServer(serve) {
+                serve.middlewares.use((req, res, next) => {
+                    if (req.url?.startsWith('/playground/')) {
+                        req.url = '/playground.html'
+                    }
+                    next()
+                })
+            }
+        }
+    ]
+})
 await server.listen()
 
 server.printUrls()

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "1-basic",
+    "sections": [
+      {
+        "name": "1-introduction",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "2-reactive_data_and_dynamic_part",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const newItem = atom('')\n    const items = new RxList<string>([])\n    const onClickAdd = (e:any) => {\n        items.push(newItem())\n        newItem('')\n    }\n    return (\n        <div>\n            <div>\n                <input value={newItem} onInput={(e:any) => newItem(e.target.value)}/>\n                <button onClick={onClickAdd}>add</button>\n            </div>\n            <div>\n                {items.map((item) => {\n                    return <div>{item}</div>\n                })}\n            </div>\n        </div>\n    )\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "3-component",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      }
+    ]
+  },
+  {
+    "name": "2-advanced",
+    "sections": [
+      {
+        "name": "1-computed",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "2-RxList_RxSet_RxMap",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "3-component_configuration",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "4-component_context",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "5-styling_transition_and_animation",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      }
+    ]
+  },
+  {
+    "name": "3-common_util",
+    "sections": []
+  }
+]

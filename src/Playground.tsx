@@ -1,21 +1,76 @@
-import {atom, autorun, computed, createElement, RenderContext, RxMap} from "axii";
+import {
+    atom,
+    autorun,
+    computed,
+    createElement,
+    createReactivePosition,
+    once,
+    RenderContext,
+    RxList,
+    RxMap,
+    STATUS_CLEAN
+} from "axii";
 import {compileApp} from "./compile";
-import {renderSandbox} from "../sandbox";
-import {common} from "axii-ui/themes/inc.js";
+import {renderSandbox} from "./sandbox";
 import {CodeMirror} from "./component/CodeMirror";
+import {Button, Popover, Select} from "axii-ui";
+import { common } from "./theme";
+import { RxRouter } from 'axii-router'
 
-export function Playground({}, {useLayoutEffect}: RenderContext) {
+type Section = {name: string, files: {[k:string]: string}}
+
+type ChapterData = {
+    name: string
+    sections: Section[]
+}
+
+type FlatSection = Section & {chapter:string}
+
+const BASE_URL = '/playground'
+
+export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderContext) {
+
     // 1. parse url 的 query， 得到 codeURL
-    const codeURL = (new URLSearchParams(window.location.search).get('codeURL')) || 'docs/tutorial/1_1_introduction/code'
+    const chapterURL = `/docs/tutorial/files.json`
+    const chapters = new RxList<ChapterData>(async function () {
+        return (await fetch(chapterURL)).json()
+    })
 
 
-    const files = new RxMap<string, string>(async function () {
-        console.log('fetching', `${codeURL}/files.json`)
-        return (await fetch(`${codeURL}/files.json`)).json()
+    const router = computed<RxRouter<FlatSection>>(() => {
+        if (chapters.status() === STATUS_CLEAN) {
+            const sections: FlatSection[] = chapters.data.reduce<FlatSection[]>((last, chapter) => {
+                return last.concat(chapter.sections.map(section => ({...section, chapter: chapter.name})))
+            }, [])
+            const router = new RxRouter(
+                sections.map(section => ({
+                    path: `/${section.chapter}/${section.name}`,
+                    handler: section
+                })),
+                undefined,
+                BASE_URL
+            )
+            router.add([{
+                path: `/`,
+                redirect: `/${sections[0].chapter}/${sections[0].name}`
+            }])
+
+            return router
+        } else {
+            return null
+        }
+    })
+
+
+    const files = new RxMap<string, string>(() => {
+        if (!router()) return {}
+        console.log(router()!)
+        console.log(router()!.handler())
+        return router()!.handler()?.files || {}
     })
 
     const sandboxContent = atom('')
-    const editingFile = atom('index.tsx')
+    const editingFile = atom('App.tsx')
 
     const onCodeSave = (code: string) => {
         files.set(editingFile(), code)
@@ -31,13 +86,49 @@ export function Playground({}, {useLayoutEffect}: RenderContext) {
         separator: 'rgba(44,44,44)',
     }
 
-    useLayoutEffect(() => {
-        computed(() => {
-            if (!sandboxContent() && files.size()!==0) {
-                sandboxContent(renderSandbox(compileApp(Object.fromEntries(files.data.entries()))!))
-            }
-        })
-    });
+
+
+    const chapterSelectorStyle = {
+        '$root:style': {
+            ...common.textBox(),
+            ...common.projectingContainer,
+            cursor: 'pointer',
+            borderRadius: common.sizes.radius.item(),
+        },
+        '$displayValue:style': () => ({
+            display: 'flex',
+            alignItems: 'center',
+            fontSize: common.sizes.fontSize.text(),
+            color: common.colors.text.normal(),
+            justifyContent: 'space-between',
+        }),
+        '$options:style': {
+            ...common.modalContainer,
+            ...common.itemPaddingContainer,
+            color: common.colors.text.normal(),
+            fontSize: common.sizes.fontSize.text(),
+            lineHeight: '20px',
+        },
+        '$displayOption:style': {
+            ...common.interactableItem,
+            ...common.textBox({borderWidth:0}),
+        }
+    }
+    const selectorPosition = createStateFromRef(createReactivePosition({type: 'interval', duration: 100}))
+    const popoverVisible = atom(false)
+    const align = {
+        left:'left',
+        top: 'bottom'
+    }
+
+    computed(() => {
+        console.log(router()?.handler()? `${router().handler()!.chapter}/${router().handler()!.name}` :null)
+    })
+
+    const onSelectChapter = (chapterUrl:string ) => {
+        router().push(chapterUrl)
+        popoverVisible(false)
+    }
 
     return (
         <div style={{
@@ -46,14 +137,67 @@ export function Playground({}, {useLayoutEffect}: RenderContext) {
             background: colors.body,
             ...common.layout.middleGrow(true, 2)
         }}>
-            <div style={{height: 50, borderBottom:`1px solid ${colors.separator}`}}> header</div>
+            <div style={{padding: [10, 20], borderBottom:`1px solid ${colors.separator}`, ...common.layout.flexRow({align:'center'}),...common.layout.twoSide(false), }}>
+                <div style={{...common.layout.flexRow({gap:20})}}>
+                    <div>
+                        Axii
+                    </div>
+                    <div>Tutorial</div>
+                    <div>Reference</div>
+                    <div>Axii UI</div>
+                    <div>Axii Util</div>
+                </div>
+                <div>
+                    <Button $root:style={{...common.textBox({ color: '#fff'})}}>Get Started</Button>
+                </div>
+            </div>
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
-                <div style={{width: 100, borderRight:`1px solid ${colors.separator}`}}>docs</div>
+                <div style={{ padding: 20, borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light}}>
+                    <div>
+                        <div ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
+                            {() => router()?.handler()?
+                                `${router().handler()!.chapter.replace(/\d-/, '')}/${router().handler()!.name.replace(/\d-/, '')}` :
+                                null
+                            }
+                        </div>
+                        <Popover targetPosition={selectorPosition} visible={popoverVisible} align={align}>
+                            {() => (
+                                <div style={{padding: 20, borderRadius:4, border:`1px solid ${common.colorScheme.blacks.outline}`, background: common.colorScheme.blacks.lighter,...common.layout.flexColumn({gap:10})}}>
+                                    {chapters.map(chapter => (
+                                        <div style={{}}>
+                                            <div style={{padding: [10, 0]}}>{chapter.name.replace('-', '. ')}</div>
+                                            <div style={{paddingLeft:20, ...common.layout.flexColumn({gap:10})}}>
+                                                {chapter.sections.map(section => (
+                                                    <div
+                                                        style={() => ({cursor:'pointer',textDecoration: router()?.handler()?.name === section.name ? 'underline' : 'none'})}
+                                                        onClick={() => onSelectChapter(`/${chapter.name}/${section.name}`)}
+                                                    >
+                                                        {section.name.replace('-', '. ')}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </Popover>
+
+                    </div>
+                </div>
+
                 <div style={{...common.layout.flexColumnStretched({gap: 0})}}>
-                    <div style={{height: '50%', overflow: 'scroll', borderBottom:`1px solid ${colors.separator}`, ...common.layout.flexRow({gap: 0})}}>
+                    <div style={{
+                        height: '50%',
+                        overflow: 'scroll',
+                        borderBottom: `1px solid ${colors.separator}`,
+                        ...common.layout.flexRow({gap: 0}),
+                        flexWrap: 'nowrap'
+                    }}>
                         <div style={{
                             flexGrow: 0,
                             flexShrink: 0,
+                            borderRight: `1px solid ${colors.separator}`,
+                            background: common.colorScheme.blacks.light,
                             ...common.layout.flexColumnStretched({gap: common.sizes.space.itemGap()})
                         }}>
                             <div>{filesWithSelected.map(([file, selected]) => {
@@ -70,18 +214,18 @@ export function Playground({}, {useLayoutEffect}: RenderContext) {
                                 )
                             })}</div>
                         </div>
-                        <div style={{flexGrow: 1, background: '#2d2f3f'}}>
+                        <div style={{flexGrow: 1, background: common.colorScheme.blacks.dark}}>
                             {() => {
                                 const ext = editingFile().split('.').pop()
                                 return <CodeMirror value={files.get(editingFile())} language={ext} onSave={onCodeSave}/>
                             }}
                         </div>
                     </div>
-                    <div style={{height: '50%', overflow: 'scroll', color: 'black', ...common.layout.center()}}>
+                    <div style={{height: '50%', overflow: 'scroll', background: common.colorScheme.blacks.dark, ...common.layout.center()}}>
                         {() => sandboxContent() ?
                             <iframe src={URL.createObjectURL(new Blob([sandboxContent()], {type: 'text/html'}))}
                                     style={{width: '100%', height: '100%', 'borderWidth': 0}}/> as HTMLIFrameElement :
-                            <div style={{...common.layout.center()}}>loading...</div>
+                            <div style={{...common.layout.center(),color:'#fff'}}>loading...</div>
                         }
                     </div>
                 </div>

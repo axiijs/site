@@ -3,7 +3,8 @@ import {createElement, atom, Atom, FixedCompatiblePropsType, RenderContext, Prop
 import {basicSetup} from "codemirror"
 import {EditorView, keymap} from "@codemirror/view"
 import {javascript,} from "@codemirror/lang-javascript"
-import {dracula as theme} from "thememirror"
+// import {dracula as theme} from "thememirror"
+import {theme} from "./theme"
 
 const CodeMirrorPropTypes = {
     value: PropTypes.atom<string>().default(() => atom('')),
