@@ -17,7 +17,7 @@
     "@types/node": "^20.11.30",
     "axii": "^2.6.23",
     "axii-icon-park": "^2.1.0",
-    "axii-router": "^2.0.2",
+    "axii-router": "^2.0.3",
     "axii-ui": "^1.0.2",
     "axii-ui-theme-common": "^1.0.2",
     "codemirror": "^6.0.1",
