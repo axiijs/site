@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "tsx scripts/dev.ts"
+    "start": "tsx scripts/dev.ts",
+    "build": "vite build -c ./vite.site.config.ts"
   },
   "dependencies": {
     "@babel/standalone": "^7.24.5",
@@ -15,6 +16,7 @@
     "@types/babel__standalone": "^7.1.7",
     "@types/node": "^20.11.30",
     "axii": "^2.6.23",
+    "axii-icon-park": "^2.1.0",
     "axii-router": "^2.0.2",
     "axii-ui": "^1.0.2",
     "axii-ui-theme-common": "^1.0.2",

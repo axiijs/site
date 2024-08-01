@@ -16,6 +16,7 @@ import {CodeMirror} from "./component/CodeMirror";
 import {Button, Popover, Select} from "axii-ui";
 import { common } from "./theme";
 import { RxRouter } from 'axii-router'
+import DownIcon from "./icons/Down";
 
 type Section = {name: string, files: {[k:string]: string}}
 
@@ -77,6 +78,14 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
         sandboxContent(renderSandbox(compileApp(Object.fromEntries(files.data.entries()))!))
     }
 
+    autorun(() => {
+        // 每次 router 变换的时候，重新编译 app
+        if (router()?.handler()) {
+            sandboxContent(renderSandbox(compileApp(Object.fromEntries(files.data.entries()))!))
+            return true
+        }
+    })
+
     const fileNames = files.keys()
     const filesWithSelected = fileNames.createSelection(editingFile)
 
@@ -87,33 +96,6 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
     }
 
 
-
-    const chapterSelectorStyle = {
-        '$root:style': {
-            ...common.textBox(),
-            ...common.projectingContainer,
-            cursor: 'pointer',
-            borderRadius: common.sizes.radius.item(),
-        },
-        '$displayValue:style': () => ({
-            display: 'flex',
-            alignItems: 'center',
-            fontSize: common.sizes.fontSize.text(),
-            color: common.colors.text.normal(),
-            justifyContent: 'space-between',
-        }),
-        '$options:style': {
-            ...common.modalContainer,
-            ...common.itemPaddingContainer,
-            color: common.colors.text.normal(),
-            fontSize: common.sizes.fontSize.text(),
-            lineHeight: '20px',
-        },
-        '$displayOption:style': {
-            ...common.interactableItem,
-            ...common.textBox({borderWidth:0}),
-        }
-    }
     const selectorPosition = createStateFromRef(createReactivePosition({type: 'interval', duration: 100}))
     const popoverVisible = atom(false)
     const align = {
@@ -121,9 +103,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
         top: 'bottom'
     }
 
-    computed(() => {
-        console.log(router()?.handler()? `${router().handler()!.chapter}/${router().handler()!.name}` :null)
-    })
+
 
     const onSelectChapter = (chapterUrl:string ) => {
         router().push(chapterUrl)
@@ -154,18 +134,21 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
                 <div style={{ padding: 20, borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light}}>
                     <div>
-                        <div ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
-                            {() => router()?.handler()?
-                                `${router().handler()!.chapter.replace(/\d-/, '')}/${router().handler()!.name.replace(/\d-/, '')}` :
-                                null
-                            }
+                        <div style={{cursor:'pointer',...common.layout.flexRow({gap:10, align:'center'})}} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
+                            <span>
+                                {() => router()?.handler()?
+                                    `${router().handler()!.chapter.replace(/\d-/, '')}/${router().handler()!.name.replace(/\d-/, '')}` :
+                                    null
+                                }
+                            </span>
+                            <DownIcon />
                         </div>
                         <Popover targetPosition={selectorPosition} visible={popoverVisible} align={align}>
                             {() => (
                                 <div style={{padding: 20, borderRadius:4, border:`1px solid ${common.colorScheme.blacks.outline}`, background: common.colorScheme.blacks.lighter,...common.layout.flexColumn({gap:10})}}>
                                     {chapters.map(chapter => (
                                         <div style={{}}>
-                                            <div style={{padding: [10, 0]}}>{chapter.name.replace('-', '. ')}</div>
+                                            <div style={{marginBottom: 10}}>{chapter.name.replace('-', '. ')}</div>
                                             <div style={{paddingLeft:20, ...common.layout.flexColumn({gap:10})}}>
                                                 {chapter.sections.map(section => (
                                                     <div

@@ -1,0 +1,4 @@
+[[redirects]]
+from = "/playground/*"
+to = "/playground.html"
+status = 200

@@ -8,21 +8,19 @@ export default {
   define: {
     __DEV__: false,
   },
-  resolve: {
-    alias: {
-      'minditor': './src/index.ts',
-    }
-  },
-  assetsInclude: ['readme_cn.json', 'readme_en.json'],
+  // assetsInclude: ['readme_cn.json', 'readme_en.json'],
   build: {
-    outDir: 'docs',
+    outDir: 'dist',
     target: 'esnext',
     rollupOptions: {
       input: {
         index: resolve(__dirname, 'index.html'),
-        reference: resolve(__dirname, 'reference.html'),
+        // reference: resolve(__dirname, 'reference.html'),
+        playground: resolve(__dirname, 'playground.html'),
       },
+      external: ['axii', 'axii-ui', 'axii-ui-theme-common'],
     },
+
   },
 
 }
