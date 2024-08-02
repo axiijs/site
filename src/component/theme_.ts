@@ -1,73 +1,74 @@
 import {createTheme} from 'thememirror';
 import {tags as t} from '@lezer/highlight';
+import {common} from "../theme";
 
 export const theme = createTheme({
 	variant: 'dark',
 	settings: {
-		background: '#121212',
-		foreground: '#ffffff',
-		caret: '#ffffff',
-		selection: '#4a0094',
-		lineHighlight: '#8a91991a',
-		gutterBackground: '#000000',
-		gutterForeground: '#f0f0f0',
+		background: common.colorScheme.blacks.dark,
+		foreground: '#c7c7c7',
+		caret: '#4126ed',
+		selection: '#1f1f1f',
+		lineHighlight: '#1a1a1a',
+		gutterBackground: '#121212',
+		gutterForeground: '#404040',
 	},
 	styles: [
 		{
 			tag: t.comment,
-			color: '#787b8099',
+			color: '#545678',
 		},
 		{
 			tag: t.variableName,
-			color: '#8cc2f8',
+			color: '#7180f4',
 		},
 		{
 			tag: [t.string, t.special(t.brace)],
-			color: '#fb5607',
+			color: '#e1b437',
 		},
 		{
 			tag: t.number,
-			color: '#e78123',
-		},
-		{
-			tag: t.bool,
-			color: '#f02de0',
-		},
-		{
-			tag: t.null,
-			color: '#5c6166',
-		},
-		{
-			tag: t.keyword,
-			color: '#3a86ff',
-		},
-		{
-			tag: t.operator,
-			color: '#74c157',
-		},
-		{
-			tag: t.className,
-			color: '#ffae00',
-		},
-		{
-			tag: t.definition(t.typeName),
-			color: '#57cc99',
-		},
-		{
-			tag: t.typeName,
-			color: '#57cc99',
-		},
-		{
-			tag: t.angleBracket,
 			color: '#ffffff',
 		},
 		{
+			tag: t.bool,
+			color: '#3585d4',
+		},
+		{
+			tag: t.null,
+			color: '#62d0ba',
+		},
+		{
+			tag: t.keyword,
+			color: '#6d7378',
+		},
+		{
+			tag: t.operator,
+			color: '#565e67',
+		},
+		{
+			tag: t.className,
+			color: '#3cc6e2',
+		},
+		{
+			tag: t.definition(t.typeName),
+			color: '#5c6166',
+		},
+		{
+			tag: t.typeName,
+			color: '#8052ff',
+		},
+		{
+			tag: t.angleBracket,
+			color: '#5c6166',
+		},
+		{
 			tag: t.tagName,
-			color: '#ff006e',
+			color: '#5c6166',
 		},
 		{
 			tag: t.attributeName,
-			color: '#ffb703',
+			color: '#5c6166',
 		},
 	],
 });

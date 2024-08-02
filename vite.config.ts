@@ -14,7 +14,8 @@ export default {
   resolve: {
     alias: {
       'axii-router': fileURLToPath(new URL('../axii-util/packages/router/src/router.ts', import.meta.url)),
-      // 'data0': fileURLToPath(new URL('../data0/src/index.ts', import.meta.url)),
+      'axii': fileURLToPath(new URL('../axii/src/index.ts', import.meta.url)),
+      'data0': fileURLToPath(new URL('../data0/src/index.ts', import.meta.url)),
     }
   },
   define: {

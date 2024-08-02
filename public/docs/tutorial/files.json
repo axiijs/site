@@ -33,21 +33,22 @@
       {
         "name": "1-computed",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, computed, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n\n    const name = atom('world')\n    const greeting = computed(() => `hello ${name()}`)\n\n    const list = new RxList([1, 2, 3])\n    const computedList = new RxList(() => list.map(i => i * 2))\n\n    const remoteList = new RxList<number>(async function() {\n        // TODO 提供一个远程地址\n        return new Promise((resolve) => {})\n    })\n\n    return <div>\n        <div>{greeting}</div>\n        <div>\n            {list.map((item) => <div>{item}</div>)}\n        </div>\n        <div>\n            {computedList.map((item) => <div>{item}</div>)}\n        </div>\n        <div>\n            <div>{() => `status: ${remoteList.status()}`}</div>\n            <div>\n                {remoteList.map((item) => <div>{item}</div>)}\n            </div>\n        </div>\n    </div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
       {
         "name": "2-RxList_RxSet_RxMap",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n\n    const source = new RxList([1, 2, 3])\n    const doubleMapRuns = atom(0)\n    const double = new RxList(() => source.map(i => {\n        doubleMapRuns(doubleMapRuns.raw + 1)\n        return i * 2\n    }).toArray())\n\n    const incrementalDoubleMapRuns = atom(0)\n    const incrementalDouble = source.map(i => {\n        incrementalDoubleMapRuns(incrementalDoubleMapRuns.raw + 1)\n        return i * 2\n    })\n\n\n    return <div>\n        <div>\n            <button onClick={() => source.push(source.length() + 1)}>add</button>\n        </div>\n        <div>\n            <div>{() => `double map runs: ${doubleMapRuns()}`}</div>\n            {double.map((item) => <div>{item}</div>)}\n        </div>\n        <div>\n            <div>{() => `incremental double map runs: ${incrementalDoubleMapRuns}`}</div>\n            {incrementalDouble.map((item) => <div>{item}</div>)}\n        </div>\n    </div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
       {
         "name": "3-component_configuration",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nimport { Child } from \"./Child\";\n\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n\n\n    return (\n        <Child\n            $main:value ={name}\n            $root:style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}\n            $main:_style={() => ({border: '1px solid black', padding: '10px'})}\n            // TODO use/props/_props 还有什么？？？\n        />\n    )\n}",
+          "Child.tsx": "import {RenderContext} from \"axii\";\n\nexport function Child({}, {createElement}: RenderContext) {\n    return (\n        <div as=\"root\">\n            <input as={\"main\"}></input>\n            <button as={\"trigger\"}></button>\n        </div>\n    )\n}\n",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
@@ -61,7 +62,7 @@
       {
         "name": "5-styling_transition_and_animation",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n\n    const style= {\n        // 普通形式，支持 数组\n        margin: 10,\n        // 支持数组形式\n        padding: [10, 20],\n        // 支持嵌套+伪类\n        '&:hover': {\n            background:'red'\n        },\n        // 支持嵌套\n        '& span': {\n            color: 'red'\n        },\n        // 支持 @ rule\n        '@keyframes': {\n            'from': {\n                opacity: 0\n            },\n            'to': {\n                opacity: 1\n            }\n        },\n        animation: '1s @self infinite infinite'\n    }\n\n    // TODO 通过数组实现开始形式的 transition\n\n    return <div style={style}><span>in component</span></div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       }

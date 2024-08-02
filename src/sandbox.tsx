@@ -34,7 +34,7 @@ export function renderSandbox( code: string) {
 <script type="importmap">
   {
     "imports": {
-      "axii": "https://esm.sh/axii@latest"
+      "axii": "http://localhost:5174/@fs/Users/camus/Work/axii/src/index.ts"
     }
   }
 </script>
