@@ -204,12 +204,18 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                             }}
                         </div>
                     </div>
-                    <div style={{height: '50%', overflow: 'scroll', background: common.colorScheme.blacks.dark, ...common.layout.center()}}>
+                    <div style={{position: 'relative',height: '50%', overflow: 'scroll', background: common.colorScheme.blacks.dark, ...common.layout.center()}}>
                         {() => sandboxContent() ?
                             <iframe src={URL.createObjectURL(new Blob([sandboxContent()], {type: 'text/html'}))}
                                     style={{width: '100%', height: '100%', 'borderWidth': 0}}/> as HTMLIFrameElement :
                             <div style={{...common.layout.center(),color:'#fff'}}>loading...</div>
                         }
+                        <Button
+                            $root:style={{position:'fixed', right:20, bottom:20}}
+                            $root:onClick={() => window.open(`/sandbox.html?code=${router().handler()!.chapter}/${router()!.handler()!.name}`)}
+                        >
+                            open
+                        </Button>
                     </div>
                 </div>
             </div>

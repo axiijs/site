@@ -9,22 +9,20 @@ export function App({}, { createElement }: RenderContext) {
         padding: [10, 20],
         // 支持嵌套+伪类
         '&:hover': {
-            background:'red'
+            background:'blue'
         },
         // 支持嵌套
         '& span': {
-            color: 'red'
+            color: 'white'
         },
         // 支持 @ rule
         '@keyframes': {
-            'from': {
-                opacity: 0
-            },
-            'to': {
-                opacity: 1
-            }
+            from: { transform: 'rotate(0deg)' },
+            to: { transform: 'rotate(359deg)' }
         },
-        animation: '1s @self infinite infinite'
+        lineHeight: 0,
+        animation: `@self 4s linear infinite`,
+        transformOrigin: 'center center',
     }
 
     // TODO 通过数组实现开始形式的 transition
