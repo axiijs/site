@@ -14,7 +14,7 @@ export function renderSandbox( code: string) {
     body{
         outline: none;
         border: none;
-        background: rgba(20,20,20);
+        background: rgba(50,50,50);
         color: #fff;
         font-family: Arial, sans-serif;
         display: flex;
@@ -34,7 +34,7 @@ export function renderSandbox( code: string) {
 <script type="importmap">
   {
     "imports": {
-      "axii": "http://localhost:5174/@fs/Users/camus/Work/axii/src/index.ts"
+        "axii": "https://esm.sh/axii@latest"
     }
   }
 </script>

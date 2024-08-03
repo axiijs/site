@@ -4,19 +4,21 @@ import {
     computed,
     createElement,
     createReactivePosition,
-    once,
     RenderContext,
     RxList,
     RxMap,
     STATUS_CLEAN
 } from "axii";
-import {compileApp} from "./compile";
 import {renderSandbox} from "./sandbox";
 import {CodeMirror} from "./component/CodeMirror";
-import {Button, Popover, Select} from "axii-ui";
-import { common } from "./theme";
-import { RxRouter } from 'axii-router'
+import {Button, Popover} from "axii-ui";
+import {common} from "./theme";
+import {Router} from 'data0-router'
 import DownIcon from "./icons/Down";
+import {createWorkerClient} from 'data0-worker'
+import {AppCompiler} from "./compile.worker";
+import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
+
 
 type Section = {name: string, files: {[k:string]: string}}
 
@@ -37,13 +39,14 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
         return (await fetch(chapterURL)).json()
     })
 
+    const compiler = createWorkerClient<AppCompiler>(new Worker(new URL('./compile.worker.ts', import.meta.url), { type:'module'}))
 
-    const router = computed<RxRouter<FlatSection>>(() => {
+    const router = computed<Router<FlatSection>>(() => {
         if (chapters.status() === STATUS_CLEAN) {
             const sections: FlatSection[] = chapters.data.reduce<FlatSection[]>((last, chapter) => {
                 return last.concat(chapter.sections.map(section => ({...section, chapter: chapter.name})))
             }, [])
-            const router = new RxRouter(
+            const router = new Router(
                 sections.map(section => ({
                     path: `/${section.chapter}/${section.name}`,
                     handler: section
@@ -65,24 +68,41 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
 
     const files = new RxMap<string, string>(() => {
         if (!router()) return {}
-        console.log(router()!)
-        console.log(router()!.handler())
         return router()!.handler()?.files || {}
     })
 
-    const sandboxContent = atom('')
+
     const editingFile = atom('App.tsx')
+
+
+    const compileAction = new SingleAction(()=> {
+        console.log('runing action')
+        return compiler.compile(Object.fromEntries(files.data.entries()))
+    })
+
+    const sandboxContent = computed<string>(() => {
+        console.log(111,
+            compileAction.latest(),
+            compileAction.latest()?.data(),
+            compileAction.latest()?.status(),
+        )
+
+        if (compileAction.latest()?.status() === STATUS_SUCCESS) {
+            return renderSandbox(compileAction.latest()?.data())
+        } else {
+            return ''
+        }
+    })
 
     const onCodeSave = (code: string) => {
         files.set(editingFile(), code)
-        sandboxContent(renderSandbox(compileApp(Object.fromEntries(files.data.entries()))!))
+        compileAction.run()
     }
 
-    autorun(() => {
+    autorun( () => {
         // 每次 router 变换的时候，重新编译 app
         if (router()?.handler()) {
-            sandboxContent(renderSandbox(compileApp(Object.fromEntries(files.data.entries()))!))
-            return true
+            compileAction.run()
         }
     })
 
@@ -119,7 +139,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
         }}>
             <div style={{padding: [10, 20], borderBottom:`1px solid ${colors.separator}`, ...common.layout.flexRow({align:'center'}),...common.layout.twoSide(false), }}>
                 <div style={{...common.layout.flexRow({gap:20})}}>
-                    <div>
+                    <div style={{paddingRight:20}}>
                         Axii
                     </div>
                     <div>Tutorial</div>
@@ -204,14 +224,29 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                             }}
                         </div>
                     </div>
-                    <div style={{position: 'relative',height: '50%', overflow: 'scroll', background: common.colorScheme.blacks.dark, ...common.layout.center()}}>
-                        {() => sandboxContent() ?
-                            <iframe src={URL.createObjectURL(new Blob([sandboxContent()], {type: 'text/html'}))}
-                                    style={{width: '100%', height: '100%', 'borderWidth': 0}}/> as HTMLIFrameElement :
-                            <div style={{...common.layout.center(),color:'#fff'}}>loading...</div>
-                        }
+                    <div style={{
+                        position: 'relative',
+                        height: '50%',
+                        overflow: 'scroll',
+                        background: common.colorScheme.blacks.dark, ...common.layout.center()
+                    }}>
+
+                        {() => {
+                            const status = compileAction.latest()?.status()
+
+                            if (sandboxContent() && status === STATUS_SUCCESS) {
+                                return <iframe src={URL.createObjectURL(new Blob([sandboxContent()], {type: 'text/html'}))}
+                                               style={{width: '100%', height: '100%', 'borderWidth': 0}}/> as HTMLIFrameElement
+                            }
+
+                            if( status === STATUS_ERROR) return <div>compile error</div>
+                            if (status === STATUS_PROCESSING) return <div>compiling</div>
+                            return <div>{status}</div>
+                        }}
+
+
                         <Button
-                            $root:style={{position:'fixed', right:20, bottom:20}}
+                            $root:style={{...common.textBox(), position: 'fixed', right: 20, bottom: 20}}
                             $root:onClick={() => window.open(`/sandbox.html?code=${router().handler()!.chapter}/${router()!.handler()!.name}`)}
                         >
                             open

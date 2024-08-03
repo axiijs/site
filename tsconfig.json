@@ -23,6 +23,8 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "paths": {
+      "axii-worker": ["../axii-util/packages/worker/src/index.ts"],
+      "axii-action": ["../axii-util/packages/action/src/action.ts"]
     }
   },
   "include": [
