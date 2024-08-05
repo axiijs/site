@@ -52,7 +52,7 @@ export function CodeMirror(props:  FixedCompatiblePropsType<typeof CodeMirrorPro
         e.stopPropagation()
         onSave?.(editor!.state.doc.toString())
     })
-    return <div as='root' ref={container} onkeydown={onSaveKeyDown}></div>
+    return <div as='root' style={{overflow:'hidden', width:'100%'}} ref={container} onkeydown={onSaveKeyDown}></div>
 
 }
 

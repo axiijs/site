@@ -188,7 +188,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                     </div>
                 </div>
 
-                <div style={{...common.layout.flexColumnStretched({gap: 0})}}>
+                <div style={{...common.layout.flexColumnStretched({gap: 0}), maxWidth:'100%', minWidth:0}}>
                     <div style={{
                         height: '50%',
                         overflow: 'scroll',
@@ -217,7 +217,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                                 )
                             })}</div>
                         </div>
-                        <div style={{flexGrow: 1, background: common.colorScheme.blacks.dark}}>
+                        <div style={{flexGrow: 1, overflow:'hidden', maxWidth:'100%',minWidth:0, background: common.colorScheme.blacks.dark}}>
                             {() => {
                                 const ext = editingFile().split('.').pop()
                                 return <CodeMirror value={files.get(editingFile())} language={ext} onSave={onCodeSave}/>
