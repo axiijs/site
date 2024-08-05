@@ -145,7 +145,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                     <div>Tutorial</div>
                     <div>Reference</div>
                     <div>Axii UI</div>
-                    <div>Axii Util</div>
+                    <div>Utilities</div>
                 </div>
                 <div>
                     <Button $root:style={{...common.textBox({ color: '#fff'})}}>Get Started</Button>
