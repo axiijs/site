@@ -1,9 +1,9 @@
 /* @jsx createElement */
 import {atom, autorun, Component, ContextProvider, once, RenderContext} from 'axii'
 import { Router } from 'data0-router'
-import {RouterContext} from "./RouterContext";
+import {RouterContext} from "./RouterContext.js";
 import {Pop} from "./Pop.js";
-import {Jazz} from "./Jazz";
+import {Jazz} from "./Jazz.js";
 export function Music({}, { createElement, createPortal, context }: RenderContext) {
 
     const router = context.get(RouterContext) as Router<Component>

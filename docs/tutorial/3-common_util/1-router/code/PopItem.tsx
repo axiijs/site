@@ -1,7 +1,5 @@
 /* @jsx createElement */
-import {atom, autorun, Component, once, RenderContext} from 'axii'
-import { Router } from 'data0-router'
-import {RouterContext} from "./RouterContext";
+import {RenderContext} from 'axii'
 
 type Props = {
     id:string

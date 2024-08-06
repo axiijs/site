@@ -1,8 +1,9 @@
 /* @jsx createElement */
-import {atom, autorun, Component, ContextProvider, once, RenderContext} from 'axii'
-import { Router } from 'data0-router'
-import {RouterContext} from "./RouterContext";
-import {PopItem} from "./PopItem";
+import {Component, RenderContext} from 'axii'
+import {Router} from 'data0-router'
+import {RouterContext} from "./RouterContext.js";
+import {PopItem} from "./PopItem.js";
+
 export function Pop({}, { createElement, createPortal, context }: RenderContext) {
 
     const router = context.get(RouterContext) as Router<Component>

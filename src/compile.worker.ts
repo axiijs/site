@@ -32,7 +32,6 @@ export class AppCompiler {
         console.log("compiling", files)
         const indexCode = files[INDEX_FILE]!
 
-
         const compiledFiles = Object.fromEntries(
             [...Object.entries(files)]
                 .filter(([filename]) => filename !== INDEX_FILE)
