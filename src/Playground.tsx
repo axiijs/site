@@ -51,7 +51,6 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                     path: `/${section.chapter}/${section.name}`,
                     handler: section
                 })),
-                undefined,
                 BASE_URL
             )
             router.add([{
@@ -81,11 +80,6 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
     })
 
     const sandboxContent = computed<string>(() => {
-        console.log(111,
-            compileAction.latest(),
-            compileAction.latest()?.data(),
-            compileAction.latest()?.status(),
-        )
 
         if (compileAction.latest()?.status() === STATUS_SUCCESS) {
             return renderSandbox(compileAction.latest()?.data())

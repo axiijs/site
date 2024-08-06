@@ -35,7 +35,8 @@ export function renderSandbox( code: string) {
   {
     "imports": {
         "axii": "https://esm.sh/axii@latest",
-        "data0-action": "https://esm.sh/data0-action@latest"
+        "data0-action": "https://esm.sh/data0-action@latest",
+        "data0-router": "https://esm.sh/data0-router@latest"
     }
   }
 </script>
