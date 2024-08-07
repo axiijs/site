@@ -44,7 +44,7 @@ const weights = createRange([100, 200, 300, 400, 500, 600, 700, 800, 900], 3)
 
 
 // 外部也可以使用
-export const common = createCommon(
+export const innerCommon = createCommon(
     colorSchema,
     true,
     new StyleSize(1, 'px'),
@@ -53,3 +53,30 @@ export const common = createCommon(
     weights
 )
 
+export const common = {
+    ...innerCommon,
+    link: {
+        cursor: 'pointer',
+        '&:hover': {
+            textDecoration: 'underline',
+        }
+    },
+    button: {
+        height:40,
+        boxSizing: 'border-box',
+        padding: [0, 20],
+        borderRadius:20,
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#fff',
+        outline: 'none',
+        border: '1px solid rgba(42,42,42,1)',
+        background: 'rgba(24,24,24,1)',
+        '&:hover': {
+            background: 'rgba(56,56,56,1)',
+        }
+    }
+
+}
