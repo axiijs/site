@@ -6,8 +6,8 @@ import {Pop} from "./Pop.js";
 import {Jazz} from "./Jazz.js";
 export function Music({}, { createElement, createPortal, context }: RenderContext) {
 
-    const router = context.get(RouterContext) as Router<Component>
-    router.add([{
+    const SubRouter = context.get(RouterContext) as typeof Router<Component>
+    const router = new SubRouter([{
         path: '/pop',
         handler: Pop
     }, {

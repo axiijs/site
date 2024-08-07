@@ -39,8 +39,8 @@ export function App({}, { createElement, createPortal }: RenderContext) {
                     return <div>not found</div>
                 }
 
-                const subRouter = router.derive(router.path())
-                return <ContextProvider contextType={RouterContext} value={subRouter}>
+                const SubRouter = router.derive(router.path())
+                return <ContextProvider contextType={RouterContext} value={SubRouter}>
                     <Content />
                 </ContextProvider>
             }}

@@ -22,7 +22,7 @@
     "axii-ui-theme-common": "^1.0.2",
     "codemirror": "^6.0.1",
     "data0-action": "^2.0.4",
-    "data0-router": "^2.1.0",
+    "data0-router": "^2.2.0",
     "data0-worker": "^2.0.2",
     "minditor": "^1.0.18",
     "monaco-editor": "^0.48.0",

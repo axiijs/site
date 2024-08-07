@@ -6,8 +6,8 @@ import {PopItem} from "./PopItem.js";
 
 export function Pop({}, { createElement, createPortal, context }: RenderContext) {
 
-    const router = context.get(RouterContext) as Router<Component>
-    router.add([{
+    const SubRouter = context.get(RouterContext) as typeof Router<Component>
+    const router = new SubRouter([{
         path: '/:id',
         handler: PopItem
     }, {
