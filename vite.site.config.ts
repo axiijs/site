@@ -18,12 +18,10 @@ export default {
         // reference: resolve(__dirname, 'reference.html'),
         playground: resolve(__dirname, 'playground.html'),
       },
-      external: ['axii', 'axii-ui', 'axii-ui-theme-common'],
     },
     resolve: {
       dedupe: ['data0', 'axii']
     }
-
   },
 
 }
