@@ -38,6 +38,13 @@
         }
       },
       {
+        "name": "10-selection",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, autorun, once, RenderContext} from 'axii'\nexport function App({}, { createElement, createPortal }: RenderContext) {\n\n    const portalVisible = atom(false)\n    const portalNode = createPortal(() => {\n        const containerStyle = {\n            position: 'fixed',\n            top:0,\n            bottom:0,\n            left:0,\n            right:0,\n            background: 'black',\n            color: 'white',\n            display:'flex',\n            justifyContent: 'center',\n            alignItems: 'center',\n        }\n        return (\n            <div style={containerStyle} onClick={() => portalVisible(false)}>\n                <div>content</div>\n            </div>\n        )\n    }, document.body)\n\n    return <div style={{}}>\n        <button onClick={() => portalVisible(true)}>open portal</button>\n        {() => portalVisible() ? portalNode : null}\n    </div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
         "name": "2-RxList_RxSet_RxMap",
         "files": {
           "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n\n    const source = new RxList([1, 2, 3])\n    const doubleMapRuns = atom(0)\n    const double = new RxList(() => source.map(i => {\n        doubleMapRuns(doubleMapRuns.raw + 1)\n        return i * 2\n    }).toArray())\n\n    const incrementalDoubleMapRuns = atom(0)\n    const incrementalDouble = source.map(i => {\n        incrementalDoubleMapRuns(incrementalDoubleMapRuns.raw + 1)\n        return i * 2\n    })\n\n\n    return <div>\n        <div>\n            <button onClick={() => source.push(source.length() + 1)}>add</button>\n        </div>\n        <div>\n            <div>{() => `double map runs: ${doubleMapRuns()}`}</div>\n            {double.map((item) => <div>{item}</div>)}\n        </div>\n        <div>\n            <div>{() => `incremental double map runs: ${incrementalDoubleMapRuns}`}</div>\n            {incrementalDouble.map((item) => <div>{item}</div>)}\n        </div>\n    </div>\n}",
@@ -84,6 +91,13 @@
       },
       {
         "name": "8-portal",
+        "files": {
+          "App.tsx": "/* @jsx createElement */\nimport {atom, autorun, once, RenderContext} from 'axii'\nexport function App({}, { createElement, createPortal }: RenderContext) {\n\n    const portalVisible = atom(false)\n    const portalNode = createPortal(() => {\n        const containerStyle = {\n            position: 'fixed',\n            top:0,\n            bottom:0,\n            left:0,\n            right:0,\n            background: 'black',\n            color: 'white',\n            display:'flex',\n            justifyContent: 'center',\n            alignItems: 'center',\n        }\n        return (\n            <div style={containerStyle} onClick={() => portalVisible(false)}>\n                <div>content</div>\n            </div>\n        )\n    }, document.body)\n\n    return <div style={{}}>\n        <button onClick={() => portalVisible(true)}>open portal</button>\n        {() => portalVisible() ? portalNode : null}\n    </div>\n}",
+          "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
+        }
+      },
+      {
+        "name": "9-form",
         "files": {
           "App.tsx": "/* @jsx createElement */\nimport {atom, autorun, once, RenderContext} from 'axii'\nexport function App({}, { createElement, createPortal }: RenderContext) {\n\n    const portalVisible = atom(false)\n    const portalNode = createPortal(() => {\n        const containerStyle = {\n            position: 'fixed',\n            top:0,\n            bottom:0,\n            left:0,\n            right:0,\n            background: 'black',\n            color: 'white',\n            display:'flex',\n            justifyContent: 'center',\n            alignItems: 'center',\n        }\n        return (\n            <div style={containerStyle} onClick={() => portalVisible(false)}>\n                <div>content</div>\n            </div>\n        )\n    }, document.body)\n\n    return <div style={{}}>\n        <button onClick={() => portalVisible(true)}>open portal</button>\n        {() => portalVisible() ? portalNode : null}\n    </div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
