@@ -20,6 +20,9 @@ export default {
       },
       external: ['axii', 'axii-ui', 'axii-ui-theme-common'],
     },
+    resolve: {
+      dedupe: ['data0', 'axii']
+    }
 
   },
 

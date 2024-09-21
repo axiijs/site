@@ -5,3 +5,4 @@ import {Playground} from "./src/Playground";
 const root = document.getElementById('root')!
 const appRoot = createRoot(root)
 appRoot.render(<Playground/>)
+console.log('rendering.....')
