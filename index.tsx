@@ -1,74 +1,37 @@
 import {
-    createBlockTool,
-    createRangeTool,
-    createSuggestionTool,
-    defaultBlockWidgets,
-    defaultFormatWidgets,
-    defaultMarkdownPlugins,
-    defaultSuggestionWidgets,
-    Grid,
-    Heading,
-    InlineImageBlock,
-    InlineCode,
-    Link,
-    OLItem,
-    Paragraph,
-    scaffold,
-    Text,
-    Code,
-    ULItem, DocumentData,
-    createTOCTool
-} from "minditor";
+    createElement,
+    createRoot
+} from "axii";
 
-// parse query 中的 language，如果没有就是 en
-const searchObj = Object.fromEntries(
-    window.location.search.slice(1).split('&').map(pair => pair.split('='))
-)
-const language = searchObj.language || 'en'
+function App() {
 
-let fetchResult
 
-if (language === 'cn') {
-    // @ts-ignore
-    fetchResult = await fetch('readme_cn.json')
-} else {
-    // @ts-ignore
-    fetchResult = await fetch('readme_en.mdt.json')
-}
-const jsonData = await fetchResult.json() as DocumentData
 
-const root= document.getElementById('root')!
-const types = {
-    Paragraph,
-    Text,
-    Heading,
-    OLItem,
-    ULItem,
-    InlineCode,
-    Code,
-    Link,
-    Grid,
-    Image: InlineImageBlock
+    return <div>
+        <div>
+            <div>Axii</div>
+            <div>2.6.33</div>
+        </div>
+        <div>
+            <div>
+                <div>Docs</div>
+                <div></div>
+            </div>
+            <div>
+                <div>Playground</div>
+                <div>Talk is cheap, show me the code!</div>
+            </div>
+            <div>
+                <div>API</div>
+                <div></div>
+            </div>
+            <div>
+                <div>GitHub</div>
+                <div></div>
+            </div>
+        </div>
+    </div>
 }
 
-const plugins = [
-    ...defaultMarkdownPlugins,
-    createBlockTool(defaultBlockWidgets),
-    createRangeTool( defaultFormatWidgets ),
-    createSuggestionTool(defaultSuggestionWidgets),
-    createTOCTool()
-]
-//@ts-ignore
-const result = scaffold(root, {data: jsonData, types, plugins}, {
-    styles: {
-        containerLeft: {
-            flexShrink: 0,
-            flexGrow: 0,
-            '@media (width < 800px)': {
-                display: 'none'
-            }
-        }
-    }
-} )
-result.render()
-
+const root = createRoot(document.getElementById('root')!)
+root.render(<App/>)

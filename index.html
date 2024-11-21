@@ -3,11 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin:0;
+        }
+
+        #root{
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "HelveticaNeue-Light", system-ui, "Ubuntu", "Droid Sans", sans-serif;
+            display: flex;
+        }
+
+
+
+        .left {
+            /*background-color: #000;*/
+            /*color: #fff;*/
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+            &:hover{
+                background-color: #f0f0f0;
+            }
+            gap: 30px;
+        }
+        .highlights{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 4em;
+            font-weight: bold;
+        }
+
+        .right {
+            width: 50%;
+            display: flex;
+            flex-wrap: wrap;
+            &>*{
+                text-decoration: none;
+                color: #000;
+                box-sizing: border-box;
+                width:50%;
+                height: 50%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                &:hover{
+                    background-color: #f0f0f0;
+                    cursor: pointer;
+                }
+                &>*{
+                    position: relative;
+                    &>*{
+                        &:first-child{
+                            font-size: 2em;
+                            font-weight: bold;
+                        }
+                        &:last-child{
+                            position: absolute;
+                            color: #999;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+    </style>
 </head>
 <body>
 <div id="root">
-    <div class="loader"></div>
+    <div class="left block">
+        <div class="logo">Axii</div>
+        <div class="badges">2.6.49</div>
+        <div class="highlights">
+            <div>Precise DOM updates without Virtual DOM for lightning-fast rendering.</div>
+            <div>Built-in high performance through automatic incremental computation.</div>
+            <div>Embrace simplicity with pure JSX, free from complex APIs and special syntax.</div>
+        </div>
+    </div>
+    <div class="right">
+        <a href="./playground.html">
+            <div>
+                <div>Docs</div>
+                <div></div>
+            </div>
+        </a>
+        <a href="./playground.html">
+            <div>
+                <div>Playground</div>
+                <div>Talk is cheap, show me the code!</div>
+            </div>
+
+        </a>
+        <a  href="./playground.html">
+            <div>
+                <div>API</div>
+                <div></div>
+            </div>
+        </a>
+        <a href="https://github.com/axiijs/axii">
+            <div>
+                <div>GitHub</div>
+                <div></div>
+            </div>
+        </a>
+    </div>
 </div>
-<script type="module" src="/index.tsx"></script>
+
 </body>
 </html>
