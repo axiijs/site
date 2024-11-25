@@ -36,9 +36,15 @@ for (const chapter of await readdir(tutorialBase)) {
             files
         })
     }
+    sections.sort((a, b) => {
+        return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
+    })
     chapters.push({
         name:chapter,
         sections
+    })
+    chapters.sort((a, b) => {
+        return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
     })
 }
 
