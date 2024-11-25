@@ -4,8 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "tsx scripts/dev.ts",
-    "build": "vite build -c ./vite.site.config.ts"
+    "start": "tsx scripts/build.ts && tsx scripts/dev.ts",
+    "build": "tsx scripts/build.ts && vite build -c ./vite.site.config.ts",
+    "build-axii-api": "typedoc --options submodules/typedoc.axii.js --tsconfig submodules/axii/tsconfig.json --watch",
+    "build-data0-api": "typedoc --options submodules/typedoc.data0.js --tsconfig submodules/data0/tsconfig.json --watch"
   },
   "dependencies": {
     "@babel/standalone": "^7.24.5",
@@ -14,6 +16,7 @@
     "@codemirror/view": "^6.28.0",
     "@lezer/highlight": "^1.2.0",
     "@types/babel__standalone": "^7.1.7",
+    "@types/chroma-js": "^2.4.4",
     "@types/node": "^20.11.30",
     "axii": "^2.6.38",
     "axii-icon-park": "^2.1.0",
@@ -24,15 +27,23 @@
     "data0-record": "^2.0.8",
     "data0-router": "^2.2.4",
     "data0-worker": "^2.0.4",
-    "minditor": "^1.0.18",
     "monaco-editor": "^0.48.0",
-    "thememirror": "^2.0.1"
+    "thememirror": "^2.0.1",
+    "vitest": "^2.1.5"
   },
   "devDependencies": {
+    "@emuanalytics/typedoc-plugin-no-inherit": "^1.4.2",
     "@types/babel__core": "^7.20.5",
+    "install": "^0.13.0",
+    "npm": "^10.9.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.15.2",
-    "typescript": "^5.4.3",
+    "typedoc": "^0.26.11",
+    "typedoc-material-theme": "^1.1.0",
+    "typedoc-plugin-extras": "^3.1.0",
+    "typedoc-plugin-no-inherit": "^1.4.0",
+    "typedoc-plugin-version-header": "^1.0.0",
+    "typescript": "5.6",
     "vite": "^5.3.5"
   }
 }

@@ -1,0 +1,6 @@
+[submodule "submodules/data0"]
+	path = submodules/data0
+	url = git@github.com:sskyy/data0.git
+[submodule "submodules/axii"]
+	path = submodules/axii
+	url = git@github.com:axiijs/axii.git

@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "esnext",
+    "newLine": "LF",
+    "useDefineForClassFields": false,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "strict": true,
+    "noUnusedLocals": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "removeComments": false,
+    "jsx": "react",
+    "jsxFactory": "createElement",
+    "jsxFragmentFactory": "Fragment",
+    "lib": ["esnext", "dom"],
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "paths": {
+      "@framework": ["./axii/src"]
+    }
+  },
+  "exclude": [
+    "dist",
+    "public",
+    "node_modules"
+  ],
+  "include": [
+    "axii/global.d.ts",
+    "data0/global.d.ts",
+    "axii/src",
+    "data0/src",
+  ]
+
+}

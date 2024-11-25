@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Axii|A Reactive Data Based Frontend Framework</title>
+    <title>Axii | A Reactive Data Based Frontend Framework</title>
     <style>
         html, body {
             height: 100%;
@@ -32,6 +32,7 @@
             gap: 30px;
         }
         .highlights{
+            color: #999;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -47,13 +48,13 @@
         .right {
             width: 50%;
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             &>*{
                 text-decoration: none;
                 color: #000;
                 box-sizing: border-box;
-                width:50%;
-                height: 50%;
+                flex-grow:1;
+                height: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -98,14 +99,8 @@
     <div class="right">
         <a href="./playground.html">
             <div>
-                <div>Docs</div>
+                <div>Tutorial</div>
                 <div></div>
-            </div>
-        </a>
-        <a href="./playground.html">
-            <div>
-                <div>Playground</div>
-                <div>Talk is cheap, show me the code!</div>
             </div>
 
         </a>
@@ -118,7 +113,7 @@
         <a href="https://github.com/axiijs/axii">
             <div>
                 <div>GitHub</div>
-                <div></div>
+                <div>Talk is cheap, show me the code!</div>
             </div>
         </a>
     </div>
