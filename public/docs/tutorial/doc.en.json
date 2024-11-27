@@ -4,15 +4,15 @@
     "sections": [
       {
         "name": "1-introduction",
-        "content": "<div><p>Axii 是一个基于响应式数据结构的前端框架。它的主要特点是：</p>\n<ul>\n<li>响应式数据结构在接收到依赖的变化时，不会完全重新计算，而是自动使用更高效的增量计算更新。这在数组的很多计算中会有很大的性能提升。</li>\n<li>通过识别响应式数据来实现 DOM 结构和属性的精确更新。没有 Virtual DOM，没有 diff 过程。</li>\n</ul>\n<p>Axii 希望在绝大部分场景内都为开发者保障高性能，不需要付出额外努力。</p></div>"
+        "content": "<div><p>Axii is a frontend framework based on reactive data structures. Its main features are:</p>\n<ul>\n<li>When reactive data structures receive dependency changes, they don't recalculate completely, but automatically use more efficient incremental computation updates. This provides significant performance improvements in many array computations.</li>\n<li>Precise updates of DOM structure and attributes by identifying reactive data. No Virtual DOM, no diff process.</li>\n</ul>\n<p>Axii aims to ensure high performance for developers in most scenarios without requiring extra effort.</p></div>"
       },
       {
         "name": "2-reactive_data_and_dynamic_part",
-        "content": "<div><p>Axii 中的响应式数据结构有以下几种：</p>\n<ul>\n<li>atom 原子数据，作为一个整体对待。</li>\n<li>RxList/RxMap/RxSet 响应式的集合类数据结构，当集合发生变化时会传出信号，但集合对象内部的变化不会深度响应。</li>\n<li>RxTime 用于处理时间的特殊响应式数据结构。</li>\n</ul>\n<p>我们可以将 atom 传递给任何 dom 属性，当 atom 的值发生变化时，dom 属性会自动更新。\n我们也可以将 RxList map 成一个 dom 数组，当 RxList 的值发生变化时，dom 数组会自动更新。</p>\n<p>即使你使用的是 RxMap/RxSet，它们也有相应的 toList 方法可以转化成 RxList，这样你就可以将它们 map 成 dom 数组。</p>\n<p>对于更加动态的需求，可以直接传递一个函数来表示需要生成的 dom 结构。</p></div>"
+        "content": "<div><p>The reactive data structures in Axii include the following types:</p>\n<ul>\n<li>atom: Atomic data that is treated as a whole.</li>\n<li>RxList/RxMap/RxSet: Reactive collection data structures that emit signals when the collection changes, but changes within the collection objects are not deeply reactive.</li>\n<li>RxTime: A special reactive data structure for handling time.</li>\n</ul>\n<p>We can pass an atom to any DOM attribute, and when the atom's value changes, the DOM attribute will automatically update.\nWe can also map an RxList to a DOM array, and when the RxList's value changes, the DOM array will automatically update.</p>\n<p>Even if you're using RxMap/RxSet, they have corresponding toList methods that can convert them to RxList, allowing you to map them to DOM arrays.</p>\n<p>For more dynamic requirements, you can directly pass a function to represent the DOM structure that needs to be generated.</p></div>"
       },
       {
         "name": "3-component",
-        "content": "<div><p>Axii 的组件特点：</p>\n<ul>\n<li>支持创建默认值。在不需要响应式的场景中可以传入普通值，框架会自动转化。</li>\n<li>可以通过对内部 dom 或者子组件的显式命名，对外暴露。省去了无意义的封装。</li>\n</ul>\n<p>到这里，你已经可以愉快地使用 Axii 了。</p></div>"
+        "content": "<div><p>Axii Component Features:</p>\n<ul>\n<li>Supports default value creation. In scenarios where reactivity is not needed, regular values can be passed in, and the framework will automatically convert them.</li>\n<li>Internal DOM elements or child components can be exposed through explicit naming, eliminating unnecessary encapsulation.</li>\n</ul>\n<p>At this point, you're ready to happily use Axii!</p></div>"
       }
     ]
   },

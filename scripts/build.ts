@@ -20,7 +20,7 @@ const { createRoot, createElement } = await import("axii");
 
 
 
-const locals = ['zh', 'en', 'ja']
+const locales = ['zh', 'en', 'ja']
 
 async function generateFilesJSON(folder: string) {
     const contents: {[k:string]: string} = {}
@@ -52,12 +52,14 @@ export function render(el){
 
 async function generateHTML(inputFile: string) {
     if (existsSync(inputFile)) {
-
+        console.log(await readFile(inputFile, 'utf-8'))
         const compiledContent = compileSync(await readFile(inputFile, 'utf-8'), {jsxImportSource:'axii'}).value as string
-        const tmpFiles = await writeEntries(path.dirname(inputFile), compiledContent)
+        const docEntry = path.join(path.dirname(inputFile), 'doc.js')
+        await writeFile(docEntry, compiledContent)
+
 
         const outDir = path.join( path.dirname(inputFile), 'dist')
-        console.log(`build into ${outDir} for entry ${tmpFiles.jsEntry}`)
+        console.log(`build for ${inputFile}`)
         await build({
             configFile:false,
             root: path.dirname(inputFile),
@@ -66,11 +68,12 @@ async function generateHTML(inputFile: string) {
                 jsxFragment: 'Fragment',
             },
             build: {
+                emptyOutDir:true,
                 copyPublicDir:false,
                 lib:false,
                 rollupOptions: {
                     input: {
-                        index: tmpFiles.docEntry
+                        index: docEntry
                     }
                 },
                 outDir:outDir,
@@ -78,17 +81,17 @@ async function generateHTML(inputFile: string) {
             },
         })
 
-        const Content = (await import(path.join(outDir, 'index.js'))).default
+        console.log(await readFile(path.join(outDir, 'index.js'), 'utf-8'))
+        const Content = (await import(`${path.join(outDir, 'index.js')}?t=${performance.now()}`)).default
         const dom = new JSDOM(`<html><body><div></div></body></html>`)
+        dom.window.document.body.firstElementChild!.innerHTML = ''
         createRoot(dom.window.document.body.firstElementChild as HTMLElement).render(createElement(Content, {}))
         // const [appHTML] = await render(path.join(outDir, 'index.html'), ssrManifest)
 
+        await rm(docEntry)
+        await rm(outDir, { force:true, recursive:true})
+        console.log(dom.window.document.body.innerHTML.replace(/<!--[\s\S]*?-->/g, ''))
         return dom.window.document.body.innerHTML.replace(/<!--[\s\S]*?-->/g, '')
-        // await rm(tmpFiles.htmlEntry)
-        // await rm(tmpFiles.jsEntry)
-        // await rm(ssrJs)
-        // await rm(ssrManifest)
-        // await rm(outDir, { force:true, recursive:true})
 
         // return appHTML
     }
@@ -103,10 +106,10 @@ type DocChapter = {name:string, sections:DocSection[]}
 // 遍历 tutorial 下的所有文件夹
 const tutorialBase = path.join(process.cwd(), 'docs/tutorial')
 const codeByChapters = []
-const docByChapters = Object.fromEntries(locals.map(l => [l, [] as DocChapter[]]))
+const docByChapters = Object.fromEntries(locales.map(l => [l, [] as DocChapter[]]))
 for (const chapter of await readdir(tutorialBase)) {
     const codeSections = []
-    const docSections = Object.fromEntries(locals.map(l => [l, [] as DocSection[]]))
+    const docSections = Object.fromEntries(locales.map(l => [l, [] as DocSection[]]))
     for(const section of await readdir(`${tutorialBase}/${chapter}`)) {
         const codeFolder = `${tutorialBase}/${chapter}/${section}/code`
         // 判断是否存在 codeFolder
@@ -122,10 +125,12 @@ for (const chapter of await readdir(tutorialBase)) {
             files,
         })
 
-        for(const local of locals) {
-            const inputDoc = `${tutorialBase}/${chapter}/${section}/doc.${local}.mdx`
+        for(const locale of locales) {
+            const inputDoc = `${tutorialBase}/${chapter}/${section}/doc.${locale}.mdx`
+            console.log(locale, inputDoc)
             const docContent = await generateHTML(inputDoc)
-            docSections[local].push({
+
+            docSections[locale].push({
                 name:section,
                 content:docContent
             })
@@ -139,13 +144,13 @@ for (const chapter of await readdir(tutorialBase)) {
         sections: codeSections
     })
 
-    for(const local of locals) {
-        docSections[local].sort((a, b) => {
+    for(const locale of locales) {
+        docSections[locale].sort((a, b) => {
             return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
         })
-        docByChapters[local].push({
+        docByChapters[locale].push({
             name:chapter,
-            sections: docSections[local]
+            sections: docSections[locale]
         })
     }
 }
@@ -154,7 +159,7 @@ codeByChapters.sort((a, b) => {
     return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
 })
 
-for(const local of locals) {
+for(const local of locales) {
     docByChapters[local].sort((a, b) => {
         return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
     })
@@ -167,7 +172,8 @@ execSync(`rm -rf ${publicBase}`)
 // 如果 public/docs/tutorial 不存在，创建它
 await mkdirSync(publicBase, {recursive: true})
 await writeFile(`${publicBase}/files.json`, JSON.stringify(codeByChapters, null, 2))
-for(const local of locals) {
+// console.log(JSON.stringify(docByChapters, null, 2))
+for(const local of locales) {
     await writeFile(`${publicBase}/doc.${local}.json`, JSON.stringify(docByChapters[local], null, 2))
 }
 
