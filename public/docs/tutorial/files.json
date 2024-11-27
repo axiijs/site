@@ -5,14 +5,14 @@
       {
         "name": "1-introduction",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    const onInput = (e:any) => name(e.target.value)\n    return <div>\n        <div><input value={name} onInput={onInput}/></div>\n        <div>hello <span>{name}</span></div>\n    </div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
       {
         "name": "2-reactive_data_and_dynamic_part",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const newItem = atom('')\n    const items = new RxList<string>([])\n    const onClickAdd = (e:any) => {\n        items.push(newItem())\n        newItem('')\n    }\n    return (\n        <div>\n            <div>\n                <input value={newItem} onInput={(e:any) => newItem(e.target.value)}/>\n                <button onClick={onClickAdd}>add</button>\n            </div>\n            <div>\n                {items.map((item) => {\n                    return <div>{item}</div>\n                })}\n            </div>\n        </div>\n    )\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, AtomComputed, computed, RenderContext, RxList} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const newItem = atom('')\n    const items = new RxList<{name:string}>([])\n    const onClickAdd = (e:any) => {\n        items.unshift({name:newItem()})\n        newItem('')\n    }\n    return (\n        <div>\n            <div>\n                <input value={newItem} onInput={(e:any) => newItem(e.target.value)}/>\n                <button onClick={onClickAdd}>add</button>\n            </div>\n            <div>\n                {items.map((item, index) => {\n                    return <div>\n                        <span>{index}:</span>\n                        <span>{item.name}</span>\n                        <span><button onClick={() => items.splice(index(), 1)}>delete</button></span>\n                    </div>\n                })}\n            </div>\n            <div style={computed(()=> items.length()>3 ? {color:'red'} : {})}>\n                {() => items.length() > 3 ? 'too many' : ''}\n            </div>\n        </div>\n    )\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
@@ -20,7 +20,7 @@
         "name": "3-component",
         "files": {
           "Advanced.tsx": "import {atom, FixedCompatiblePropsType, PropsType, PropTypes, RenderContext, RxList} from \"axii\";\n\nexport const AdvancedProptype = {\n    simpleProps: PropTypes.string.default(() => 'simple'),\n    atomProp: PropTypes.atom<string>().default(() => atom('')),\n    listProp: PropTypes.rxList<string>().default(() => new RxList(['a', 'b'])),\n}\n\nexport function Advanced(props: FixedCompatiblePropsType<typeof AdvancedProptype>, {createElement}: RenderContext) {\n    const {} = props as PropsType<typeof AdvancedProptype>\n    return (\n       <div></div>\n    )\n}\n\nAdvanced.propTypes = AdvancedProptype\n\n",
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    setTimeout(() => {\n        name('axii')\n    }, 500)\n    return <div>hello <span>{name}</span></div>\n}",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nimport {Advanced} from \"./Advanced\";\nimport {Simple} from \"./Simple\";\n\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n    return <div>\n        <Simple foo={name}>children from parent</Simple>\n        <Advanced/>\n    </div>\n}",
           "Simple.tsx": "import {RenderContext} from \"axii\";\n\nexport type SimpleProps = {\n    foo: any,\n    children: any\n}\n\nexport function Simple({children, foo}:SimpleProps, {createElement}: RenderContext) {\n    return (\n        <div>\n            <div>{foo}</div>\n            <div>{children}</div>\n        </div>\n    )\n}\n",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }

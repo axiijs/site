@@ -1,4 +1,4 @@
-import {transform} from "@babel/standalone";
+const Babel = require("@babel/standalone");
 import {PluginObj} from "@babel/core";
 import {createWorkerHost} from "data0-worker";
 
@@ -6,7 +6,7 @@ const INDEX_FILE = 'index.tsx'
 
 function compileFile(filename: string, code: string, plugins: any[] = []) {
     console.log('compiling file', filename)
-    return transform(code, {
+    return Babel.transform(code, {
         presets: [
             ['react', {
                 pragma: 'createElement',

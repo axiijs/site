@@ -16,7 +16,6 @@ import {common} from "./theme";
 import {Router} from 'data0-router'
 import DownIcon from "./icons/Down";
 import {createWorkerClient} from 'data0-worker'
-import {AppCompiler} from "./compile.worker";
 import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
 import {LogoIcon} from "./icons/Icon";
 import {LogoText} from "./icons/Text";
@@ -29,11 +28,18 @@ type ChapterData = {
     sections: Section[]
 }
 
+type Compiler = {
+    compile(files: { [k: string]: string }): Promise<string>
+}
+
 type FlatSection = Section & {chapter:string}
+
+type DocSection = {name: string, content: string}
+type DocChapter = {name: string, sections: DocSection[]}
 
 const BASE_URL = '/playground'
 
-export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderContext) {
+export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRef}: RenderContext) {
 
     // 1. parse url 的 query， 得到 codeURL
     const chapterURL = `/docs/tutorial/files.json`
@@ -41,7 +47,12 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
         return (await fetch(chapterURL)).json()
     })
 
-    const compiler = createWorkerClient<AppCompiler>(new Worker(new URL('./compile.worker.ts', import.meta.url), { type:'module'}))
+    const docURL = `/docs/tutorial/doc.${locale}.json`
+    const docChapters = new RxList<DocChapter>(async function () {
+        return (await fetch(docURL)).json()
+    })
+
+    const compiler = createWorkerClient<Compiler>(new Worker(new URL('./compile.worker.ts', import.meta.url), { type:'module'}))
 
     const router = computed<Router<FlatSection>>(() => {
         if (chapters.status() === STATUS_CLEAN) {
@@ -63,6 +74,13 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
             return router
         } else {
             return null
+        }
+    })
+
+    const docContent = computed(() => {
+        if (router()?.handler() && docChapters.status() === STATUS_CLEAN) {
+            console.log(router()?.handler()!.chapter, router()?.handler()!.name, docChapters.data)
+            return docChapters.find(chapter => chapter.name === router()!.handler()!.chapter)?.().sections.find(section => section.name === router()!.handler()!.name)?.content
         }
     })
 
@@ -150,12 +168,12 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                 </div>
             </div>
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
-                <div style={{ padding: 20, borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light}}>
+                <div style={{ padding: 20, width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light}}>
                     <div>
                         <div style={{cursor:'pointer',width:'20vh', overflow:'hidden',...common.layout.flexRow({gap:10, align:'center'}),flexWrap:'nowrap'}} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
                             <span style={{flex:1, ...common.layout.oneLine()}}>
                                 {() => router()?.handler() ?
-                                    `${router().handler()!.chapter.replace(/\d-/, '')}/${router().handler()!.name.replace(/\d-/, '')}` :
+                                    `${router().handler()!.chapter.replace(/\d+-/, '')}/${router().handler()!.name.replace(/\d+-/, '').replaceAll('_', ' ')}` :
                                     null
                                 }
                             </span>
@@ -176,7 +194,7 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                                                         style={() => ({...common.link,textDecoration: router()?.handler()?.name === section.name ? 'underline' : 'none'})}
                                                         onClick={() => onSelectChapter(`/${chapter.name}/${section.name}`)}
                                                     >
-                                                        {section.name.replace('-', '. ')}
+                                                        {section.name.replace('-', '. ').replaceAll('_', ' ')}
                                                     </div>
                                                 ))}
                                             </div>
@@ -185,7 +203,9 @@ export function Playground({}, {useLayoutEffect, createStateFromRef}: RenderCont
                                 </div>
                             )}
                         </Popover>
+                        <div dangerouslySetInnerHTML={docContent}>
 
+                        </div>
                     </div>
                 </div>
 

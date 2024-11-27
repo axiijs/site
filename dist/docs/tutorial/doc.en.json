@@ -1,0 +1,77 @@
+[
+  {
+    "name": "1-basic",
+    "sections": [
+      {
+        "name": "1-introduction",
+        "content": "<div><p>Axii 是一个基于响应式数据结构的前端框架。它的主要特点是：</p>\n<ul>\n<li>响应式数据结构在接收到依赖的变化时，不会完全重新计算，而是自动使用更高效的增量计算更新。这在数组的很多计算中会有很大的性能提升。</li>\n<li>通过识别响应式数据来实现 DOM 结构和属性的精确更新。没有 Virtual DOM，没有 diff 过程。</li>\n</ul>\n<p>Axii 希望在绝大部分场景内都为开发者保障高性能，不需要付出额外努力。</p></div>"
+      },
+      {
+        "name": "2-reactive_data_and_dynamic_part",
+        "content": "<div><p>Axii 中的响应式数据结构有以下几种：</p>\n<ul>\n<li>atom 原子数据，作为一个整体对待。</li>\n<li>RxList/RxMap/RxSet 响应式的集合类数据结构，当集合发生变化时会传出信号，但集合对象内部的变化不会深度响应。</li>\n<li>RxTime 用于处理时间的特殊响应式数据结构。</li>\n</ul>\n<p>我们可以将 atom 传递给任何 dom 属性，当 atom 的值发生变化时，dom 属性会自动更新。\n我们也可以将 RxList map 成一个 dom 数组，当 RxList 的值发生变化时，dom 数组会自动更新。</p>\n<p>即使你使用的是 RxMap/RxSet，它们也有相应的 toList 方法可以转化成 RxList，这样你就可以将它们 map 成 dom 数组。</p>\n<p>对于更加动态的需求，可以直接传递一个函数来表示需要生成的 dom 结构。</p></div>"
+      },
+      {
+        "name": "3-component",
+        "content": "<div><p>Axii 的组件特点：</p>\n<ul>\n<li>支持创建默认值。在不需要响应式的场景中可以传入普通值，框架会自动转化。</li>\n<li>可以通过对内部 dom 或者子组件的显式命名，对外暴露。省去了无意义的封装。</li>\n</ul>\n<p>到这里，你已经可以愉快地使用 Axii 了。</p></div>"
+      }
+    ]
+  },
+  {
+    "name": "2-advanced",
+    "sections": [
+      {
+        "name": "1-computed",
+        "content": ""
+      },
+      {
+        "name": "2-RxList_RxSet_RxMap",
+        "content": ""
+      },
+      {
+        "name": "3-component_configuration",
+        "content": ""
+      },
+      {
+        "name": "4-component_context",
+        "content": ""
+      },
+      {
+        "name": "5-styling_transition_and_animation",
+        "content": ""
+      },
+      {
+        "name": "6-sideEffect",
+        "content": ""
+      },
+      {
+        "name": "7-create_reactive_data_from_dom_attr",
+        "content": ""
+      },
+      {
+        "name": "8-portal",
+        "content": ""
+      },
+      {
+        "name": "9-form",
+        "content": ""
+      },
+      {
+        "name": "10-selection",
+        "content": ""
+      }
+    ]
+  },
+  {
+    "name": "3-common_util",
+    "sections": [
+      {
+        "name": "1-router",
+        "content": ""
+      },
+      {
+        "name": "2-action",
+        "content": ""
+      }
+    ]
+  }
+]

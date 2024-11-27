@@ -1,6 +1,26 @@
-import {cp, readdir, readFile, writeFile} from 'fs/promises'
+import {cp, readdir, readFile, writeFile, rm} from 'fs/promises'
 import {execSync} from "node:child_process";
-import {mkdirSync} from "fs";
+import { fileURLToPath} from "url";
+import {mkdirSync, existsSync} from "fs";
+import { compileSync } from '@mdx-js/mdx'
+import {build, defineConfig} from 'vite'
+import * as path from "node:path";
+import { JSDOM } from 'jsdom'
+const globalDOM = new JSDOM(`<!DOCTYPE html>`)
+global.document = globalDOM.window.document
+global.Comment = globalDOM.window.Comment;
+global.Text = globalDOM.window.Text;
+global.HTMLElement = globalDOM.window.HTMLElement;
+global.SVGElement = globalDOM.window.SVGElement;
+global.DocumentFragment = globalDOM.window.DocumentFragment;
+
+import ResizeObserver from 'resize-observer-polyfill'
+global.ResizeObserver = ResizeObserver
+const { createRoot, createElement } = await import("axii");
+
+
+
+const locals = ['zh', 'en', 'ja']
 
 async function generateFilesJSON(folder: string) {
     const contents: {[k:string]: string} = {}
@@ -8,20 +28,85 @@ async function generateFilesJSON(folder: string) {
     const files = await readdir(folder)
     for (const file of files) {
         contents[file] = await readFile(`${folder}/${file}`, 'utf-8')
-
     }
     return contents
 }
 
 
+async function writeEntries(entryFolder:string, entryJsContent:string) {
+    const jsEntry = path.join(entryFolder, 'index.js')
+    const docEntry = path.join(entryFolder, 'doc.js')
+    await writeFile(jsEntry, `
+import {createRoot, createElement} from 'axii';
+import Content from './doc.js';
 
+export function render(el){
+    createRoot(el).render(createElement(Content))
+}
+
+`)
+    await writeFile(docEntry, entryJsContent)
+
+    return { jsEntry, docEntry}
+}
+
+async function generateHTML(inputFile: string) {
+    if (existsSync(inputFile)) {
+
+        const compiledContent = compileSync(await readFile(inputFile, 'utf-8'), {jsxImportSource:'axii'}).value as string
+        const tmpFiles = await writeEntries(path.dirname(inputFile), compiledContent)
+
+        const outDir = path.join( path.dirname(inputFile), 'dist')
+        console.log(`build into ${outDir} for entry ${tmpFiles.jsEntry}`)
+        await build({
+            configFile:false,
+            root: path.dirname(inputFile),
+            esbuild: {
+                jsxFactory: 'createElement',
+                jsxFragment: 'Fragment',
+            },
+            build: {
+                copyPublicDir:false,
+                lib:false,
+                rollupOptions: {
+                    input: {
+                        index: tmpFiles.docEntry
+                    }
+                },
+                outDir:outDir,
+                ssr: true,
+            },
+        })
+
+        const Content = (await import(path.join(outDir, 'index.js'))).default
+        const dom = new JSDOM(`<html><body><div></div></body></html>`)
+        createRoot(dom.window.document.body.firstElementChild as HTMLElement).render(createElement(Content, {}))
+        // const [appHTML] = await render(path.join(outDir, 'index.html'), ssrManifest)
+
+        return dom.window.document.body.innerHTML.replace(/<!--[\s\S]*?-->/g, '')
+        // await rm(tmpFiles.htmlEntry)
+        // await rm(tmpFiles.jsEntry)
+        // await rm(ssrJs)
+        // await rm(ssrManifest)
+        // await rm(outDir, { force:true, recursive:true})
+
+        // return appHTML
+    }
+
+    return ''
+}
+
+type DocSection = {name:string, content:string}
+type DocChapter = {name:string, sections:DocSection[]}
 
 // 2. 将 public/docs/tutorial 下所有文件夹里的 code 下的所有文件合成一个 files.json 文件
 // 遍历 tutorial 下的所有文件夹
-const tutorialBase = 'docs/tutorial'
-const chapters = []
+const tutorialBase = path.join(process.cwd(), 'docs/tutorial')
+const codeByChapters = []
+const docByChapters = Object.fromEntries(locals.map(l => [l, [] as DocChapter[]]))
 for (const chapter of await readdir(tutorialBase)) {
-    const sections = []
+    const codeSections = []
+    const docSections = Object.fromEntries(locals.map(l => [l, [] as DocSection[]]))
     for(const section of await readdir(`${tutorialBase}/${chapter}`)) {
         const codeFolder = `${tutorialBase}/${chapter}/${section}/code`
         // 判断是否存在 codeFolder
@@ -31,29 +116,60 @@ for (const chapter of await readdir(tutorialBase)) {
             continue
         }
         const files = await generateFilesJSON(codeFolder)
-        sections.push({
+
+        codeSections.push({
             name: section,
-            files
+            files,
         })
+
+        for(const local of locals) {
+            const inputDoc = `${tutorialBase}/${chapter}/${section}/doc.${local}.mdx`
+            const docContent = await generateHTML(inputDoc)
+            docSections[local].push({
+                name:section,
+                content:docContent
+            })
+        }
     }
-    sections.sort((a, b) => {
+    codeSections.sort((a, b) => {
         return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
     })
-    chapters.push({
+    codeByChapters.push({
         name:chapter,
-        sections
+        sections: codeSections
     })
-    chapters.sort((a, b) => {
+
+    for(const local of locals) {
+        docSections[local].sort((a, b) => {
+            return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
+        })
+        docByChapters[local].push({
+            name:chapter,
+            sections: docSections[local]
+        })
+    }
+}
+
+codeByChapters.sort((a, b) => {
+    return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
+})
+
+for(const local of locals) {
+    docByChapters[local].sort((a, b) => {
         return parseInt(a.name.split('-')[0], 10) - parseInt(b.name.split('-')[0], 10)
     })
 }
+
 
 // 1. copy docs/tutorials 下所有文件到 public 下
 const publicBase = 'public/docs/tutorial'
 execSync(`rm -rf ${publicBase}`)
 // 如果 public/docs/tutorial 不存在，创建它
 await mkdirSync(publicBase, {recursive: true})
-await writeFile(`${publicBase}/files.json`, JSON.stringify(chapters, null, 2))
+await writeFile(`${publicBase}/files.json`, JSON.stringify(codeByChapters, null, 2))
+for(const local of locals) {
+    await writeFile(`${publicBase}/doc.${local}.json`, JSON.stringify(docByChapters[local], null, 2))
+}
 
 // 2. copy api dir
 const apiBase = 'docs/api'
