@@ -1,4 +1,7 @@
-const Babel = require("@babel/standalone");
+/* @vite-ignore */
+// import Babel from "@babel/standalone";
+// const Babel = require("@babel/standalone");
+import * as Babel from '@babel/standalone'
 import {PluginObj} from "@babel/core";
 import {createWorkerHost} from "data0-worker";
 
