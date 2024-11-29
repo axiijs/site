@@ -5,27 +5,68 @@ export function App({}, { createElement }: RenderContext) {
     const name = atom('world')
     const greeting = computed(() => `hello ${name()}`)
 
-    const list = new RxList([1, 2, 3])
-    const computedList = new RxList(() => list.map(i => i * 2).toArray())
+    const newItem = atom('')
+    const newScore = atom(0)
 
-    const remoteList = new RxList<number>(async function() {
-        // TODO 提供一个远程地址
-        return new Promise((resolve) => {})
+    const onAdd = () => {
+        list.unshift({
+            name: newItem(),
+            score: newScore()
+        })
+        newItem('')
+        newScore(0)
+    }
+
+    const list = new RxList([{
+        name:'swim',
+        score: 100,
+    }])
+
+    const mappedList = list.map((item) => {
+        return {
+            ...item,
+            comment: item.score > 50 ? 'good' : 'bad'
+        }
     })
 
+    const total = list.reduceToAtom((acc, item) => {
+        return acc + item.score
+    }, 0)
+
+
+
     return <div>
+        <div>
+            <input value={name} onInput={(e:any) => name(e.target.value)}/>
+        </div>
         <div>{greeting}</div>
+
         <div>
-            {list.map((item) => <div>{item}</div>)}
+            <input value={newItem} onInput={(e:any)=>newItem(e.target.value)}/>
+            <input type='number' value={newScore} onInput={(e:any)=>newScore(parseInt(e.target.value, 10))}/>
+            <button onClick={onAdd}>add</button>
         </div>
-        <div>
-            {computedList.map((item) => <div>{item}</div>)}
-        </div>
-        <div>
-            <div>{() => `status: ${remoteList.status()}`}</div>
-            <div>
-                {remoteList.map((item) => <div>{item}</div>)}
-            </div>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>score</th>
+                    <th>comment</th>
+                </tr>
+            </thead>
+            <tbody>
+                {mappedList.map(({name, score, comment}) => <tr>
+                    <td>{name}</td>
+                    <td>{score}</td>
+                    <td>{comment}</td>
+                </tr>)}
+                <tr>
+                    <td>total</td>
+                    <td>{total}</td>
+                    <td>{() => total() > 200 ? 'good job' : 'keep going'}</td>
+                </tr>
+            </tbody>
+
+        </table>
     </div>
 }
