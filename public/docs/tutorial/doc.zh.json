@@ -21,19 +21,19 @@
     "sections": [
       {
         "name": "1-computed",
-        "content": ""
+        "content": "<div><p>响应式数据是 axii 中的核心概念。\n有三种创造响应式数据的方法：</p>\n<ul>\n<li>使用 RxList/RxMap/RxSet 的 api 创造响应式数据。绝大部分 api 中的计算都是增量形式的，这意味着当依赖发生变化时，不会完全重新计算，只会做最小的增量变化。应该优先考虑使用 api 。</li>\n<li>使用 RxList/RxMap/RxSet 的构造函数来创造响应式数据。当把计算逻辑作为参数传递给给构造函数时，每次计算逻辑中的依赖变化都会导致重新计算。</li>\n<li>使用 computed 创造 atom 类型的响应式数据。每次依赖变化都会重新计算。</li>\n</ul></div>"
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": ""
+        "content": "<div><p>RxList/RxMap/RxSet 是 axii 内置响应式数据结构。\n他们的 api 与 JavaScript 的 Array/Map/Set 类似。\n更详细的例子可以参考它们的测试用例。</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",
-        "content": ""
+        "content": "<div><p>在 axii 中用户可以很轻松地将子组件/ DOM 节点暴露给外部，省去无意义的封装。\n在 想要暴露的节点上使用 <code>as</code> 命名即可。</p></div>"
       },
       {
         "name": "4-component_context",
-        "content": ""
+        "content": "<div><p>和其他框架一样， axii 允许通过 context 来传递数据。</p></div>"
       },
       {
         "name": "5-styling_transition_and_animation",
@@ -41,23 +41,19 @@
       },
       {
         "name": "6-sideEffect",
-        "content": ""
+        "content": "<div><p>axii 支持使用 useEffect 和 useLayoutEffect 来创建副作用。</p>\n<p>除此之外，axii 还停工了一种更优雅的方式来处理副作用。\n用户可以申明一个继承自 ManualCleanup 的类，并实现 destroy 方法。任何在组件中实例化的 ManualCleanup 子类都会在组件销毁时自动调用 destroy 方法。</p></div>"
       },
       {
         "name": "7-create_reactive_data_from_dom_attr",
-        "content": ""
+        "content": "<div><p>dom 状态不是 reactive 的，我们往往需要：</p>\n<ul>\n<li>通过事件回调来监听状态变化。</li>\n<li>通过 api 来将数据的变化转化为 dom 状态的变化。</li>\n</ul>\n<p>axii 中提供了经常会用到的 dom 状态的响应式封装，用户也可以通过 createStateFromRef 来自定义 dom 状态的响应式封装。\n已有的封装有：</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
       },
       {
         "name": "8-portal",
-        "content": ""
+        "content": "<div><p>axii 支持将组件 render 都不同的根节点下，常用弹出框等场景。</p></div>"
       },
       {
-        "name": "9-form",
-        "content": ""
-      },
-      {
-        "name": "10-selection",
-        "content": ""
+        "name": "9-selection",
+        "content": "<div><p>axii 中默认提供了创建单选和多选的工具，来确保每次选择变化的时候不会所有行都重新计算 selected 状态。始终保持高性能。</p></div>"
       }
     ]
   },

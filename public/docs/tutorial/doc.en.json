@@ -21,19 +21,19 @@
     "sections": [
       {
         "name": "1-computed",
-        "content": ""
+        "content": "<div><p>Reactive data is a core concept in axii.\nThere are three ways to create reactive data:</p>\n<ul>\n<li>Using the APIs of RxList/RxMap/RxSet to create reactive data. Most calculations in APIs are incremental, which means when dependencies change, it won't recalculate everything but only make minimal incremental changes. Using APIs should be the first consideration.</li>\n<li>Using the constructors of RxList/RxMap/RxSet to create reactive data. When passing computation logic as parameters to the constructor, any change in dependencies within the computation logic will trigger a recalculation.</li>\n<li>Using computed to create atom-type reactive data. Any change in dependencies will trigger a recalculation.</li>\n</ul></div>"
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": ""
+        "content": "<div><p>RxList/RxMap/RxSet are built-in reactive data structures in axii.\nTheir APIs are similar to JavaScript's Array/Map/Set.\nFor more detailed examples, please refer to their test cases.</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",
-        "content": ""
+        "content": "<div><p>In axii, users can easily expose child components/DOM nodes to the outside, eliminating unnecessary encapsulation.\nSimply use <code>as</code> to name the nodes you want to expose.</p></div>"
       },
       {
         "name": "4-component_context",
-        "content": ""
+        "content": "<div><p>Like other frameworks, axii allows data to be passed through context.</p></div>"
       },
       {
         "name": "5-styling_transition_and_animation",
@@ -41,22 +41,18 @@
       },
       {
         "name": "6-sideEffect",
-        "content": ""
+        "content": "<div><p>axii supports using useEffect and useLayoutEffect to create side effects.</p>\n<p>Additionally, axii provides a more elegant way to handle side effects.\nUsers can declare a class that inherits from ManualCleanup and implement the destroy method. Any ManualCleanup subclass instantiated in a component will automatically call the destroy method when the component is destroyed.</p></div>"
       },
       {
         "name": "7-create_reactive_data_from_dom_attr",
-        "content": ""
+        "content": "<div><p>DOM states are not reactive, and we often need to:</p>\n<ul>\n<li>Listen to state changes through event callbacks.</li>\n<li>Transform data changes into DOM state changes through APIs.</li>\n</ul>\n<p>axii provides reactive wrappers for commonly used DOM states, and users can also customize DOM state reactive wrappers using createStateFromRef.\nExisting wrappers include:</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
       },
       {
         "name": "8-portal",
         "content": ""
       },
       {
-        "name": "9-form",
-        "content": ""
-      },
-      {
-        "name": "10-selection",
+        "name": "9-selection",
         "content": ""
       }
     ]

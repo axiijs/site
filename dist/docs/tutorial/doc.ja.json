@@ -21,19 +21,19 @@
     "sections": [
       {
         "name": "1-computed",
-        "content": ""
+        "content": "<div><p>リアクティブデータは axii の核となる概念です。\nリアクティブデータを作成する方法は3つあります：</p>\n<ul>\n<li>RxList/RxMap/RxSet の API を使用してリアクティブデータを作成します。API での計算のほとんどは増分形式で、依存関係が変更された場合、すべてを再計算するのではなく、最小限の増分変更のみを行います。API の使用を最優先に考慮すべきです。</li>\n<li>RxList/RxMap/RxSet のコンストラクタを使用してリアクティブデータを作成します。計算ロジックをコンストラクタにパラメータとして渡す場合、計算ロジック内の依存関係が変更されるたびに再計算がトリガーされます。</li>\n<li>computed を使用して atom タイプのリアクティブデータを作成します。依存関係が変更されるたびに再計算がトリガーされます。</li>\n</ul></div>"
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": ""
+        "content": "<div><p>RxList/RxMap/RxSet は axii の組み込みリアクティブデータ構造です。\nこれらの API は JavaScript の Array/Map/Set に似ています。\nより詳細な例については、それぞれのテストケースを参照してください。</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",
-        "content": ""
+        "content": "<div><p>axii では、子コンポーネントや DOM ノードを外部に簡単に公開でき、不要なカプセル化を排除できます。\n公開したいノードに <code>as</code> を使用して名前を付けるだけです。</p></div>"
       },
       {
         "name": "4-component_context",
-        "content": ""
+        "content": "<div><p>他のフレームワークと同様に、axii では context を通じてデータを受け渡すことができます。</p></div>"
       },
       {
         "name": "5-styling_transition_and_animation",
@@ -41,7 +41,7 @@
       },
       {
         "name": "6-sideEffect",
-        "content": ""
+        "content": "<div><p>axii は useEffect と useLayoutEffect を使用して副作用を作成することをサポートしています。</p>\n<p>さらに、axii は副作用を処理するためのより優雅な方法を提供しています。\nユーザーは ManualCleanup を継承したクラスを宣言し、destroy メソッドを実装することができます。コンポーネント内でインスタンス化された ManualCleanup のサブクラスは、コンポーネントが破棄されるときに自動的に destroy メソッドを呼び出します。</p></div>"
       },
       {
         "name": "7-create_reactive_data_from_dom_attr",
@@ -52,11 +52,7 @@
         "content": ""
       },
       {
-        "name": "9-form",
-        "content": ""
-      },
-      {
-        "name": "10-selection",
+        "name": "9-selection",
         "content": ""
       }
     ]
