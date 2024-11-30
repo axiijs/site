@@ -25,7 +25,7 @@
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": "<div><p>RxList/RxMap/RxSet are built-in reactive data structures in axii.\nTheir APIs are similar to JavaScript's Array/Map/Set.\nFor more detailed examples, please refer to their test cases.</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
+        "content": "<div><p>RxList/RxMap/RxSet are built-in reactive data structures in axii.\nTheir APIs are similar to JavaScript's Array/Map/Set.\nFor more detailed examples, please refer to their test cases.</p>\n<ul>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxList.spec.ts\">RxList</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxMap.spec.ts\">RxMap</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxSet.spec.ts\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",

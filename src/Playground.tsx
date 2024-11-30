@@ -47,7 +47,17 @@ const docStyle = {
         display:'flex',
         flexDirection:'column',
         gap: 16
+    },
+    '& a': {
+        color: 'white'
+    },
+    '& a:link': {
+        color: 'white'
+    },
+    '& a:visited': {
+        color: 'white'
     }
+
 }
 
 const colors = {

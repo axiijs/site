@@ -25,7 +25,7 @@
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": "<div><p>RxList/RxMap/RxSet 是 axii 内置响应式数据结构。\n他们的 api 与 JavaScript 的 Array/Map/Set 类似。\n更详细的例子可以参考它们的测试用例。</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
+        "content": "<div><p>RxList/RxMap/RxSet 是 axii 内置响应式数据结构。\n他们的 api 与 JavaScript 的 Array/Map/Set 类似。\n更详细的例子可以参考它们的测试用例。</p>\n<ul>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxList.spec.ts\">RxList</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxMap.spec.ts\">RxMap</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxSet.spec.ts\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",

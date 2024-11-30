@@ -25,7 +25,7 @@
       },
       {
         "name": "2-RxList_RxSet_RxMap",
-        "content": "<div><p>RxList/RxMap/RxSet は axii の組み込みリアクティブデータ構造です。\nこれらの API は JavaScript の Array/Map/Set に似ています。\nより詳細な例については、それぞれのテストケースを参照してください。</p>\n<ul>\n<li><a href=\"\">RxList</a></li>\n<li><a href=\"\">RxMap</a></li>\n<li><a href=\"\">RxSet</a></li>\n</ul></div>"
+        "content": "<div><p>RxList/RxMap/RxSet は axii の組み込みリアクティブデータ構造です。\nこれらの API は JavaScript の Array/Map/Set に似ています。\nより詳細な例については、それぞれのテストケースを参照してください。</p>\n<ul>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxList.spec.ts\">RxList</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxMap.spec.ts\">RxMap</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxSet.spec.ts\">RxSet</a></li>\n</ul></div>"
       },
       {
         "name": "3-component_configuration",
