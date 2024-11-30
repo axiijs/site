@@ -45,15 +45,15 @@
       },
       {
         "name": "7-create_reactive_data_from_dom_attr",
-        "content": ""
+        "content": "<div><p>DOM の状態はリアクティブではなく、以下のようなことが必要になります：</p>\n<ul>\n<li>イベントコールバックを通じて状態の変化を監視する。</li>\n<li>API を通じてデータの変化を DOM の状態の変化に変換する。</li>\n</ul>\n<p>axii は、よく使用される DOM 状態のリアクティブラッパーを提供しており、ユーザーは createStateFromRef を使用して DOM 状態のリアクティブラッパーをカスタマイズすることもできます。\n既存のラッパーには以下のものがあります：</p>\n<ul>\n<li>dom size（DOM サイズ）</li>\n<li>position（位置）</li>\n<li>drag position（ドラッグ位置）</li>\n<li>scroll position（スクロール位置）</li>\n</ul></div>"
       },
       {
         "name": "8-portal",
-        "content": ""
+        "content": "<div><p>axii は、異なるルートノードの下にコンポーネントをレンダリングすることをサポートしており、ポップアップなどのシナリオでよく使用されます。</p></div>"
       },
       {
         "name": "9-selection",
-        "content": ""
+        "content": "<div><p>axii は、単一選択と複数選択を作成するためのツールをデフォルトで提供しており、選択が変更されたときにすべての行が選択状態を再計算することがないようにしています。これにより、常に高いパフォーマンスを維持します。</p></div>"
       }
     ]
   },

@@ -49,11 +49,11 @@
       },
       {
         "name": "8-portal",
-        "content": ""
+        "content": "<div><p>axii supports rendering components under different root nodes, commonly used in scenarios like popups.</p></div>"
       },
       {
         "name": "9-selection",
-        "content": ""
+        "content": "<div><p>axii provides built-in tools for creating single and multiple selections, ensuring that not all rows recalculate their selected state when selection changes. This maintains high performance at all times.</p></div>"
       }
     ]
   },
