@@ -150,7 +150,6 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
 
 
     const compileAction = new SingleAction(()=> {
-        console.log('runing action')
         return compiler.compile(Object.fromEntries(files.data.entries()))
     })
 
@@ -175,6 +174,12 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
         }
     })
 
+    autorun(() => {
+        if (chapters.length() && !router()?.handler() ) {
+            onSelectChapter(`/${chapters.at(0)!.name}/${chapters.at(0)!.sections[0].name}`)
+        }
+    })
+
     const fileNames = files.keys()
     const filesWithSelected = fileNames.createSelection(editingFile)
 
@@ -194,12 +199,15 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
 
 
     const onSelectChapter = (chapterUrl:string ) => {
+        // change title to `Axii Tutorial - ${chapterUrl}`
+        document.title = `Axii Tutorial - ${chapterUrl}`
+
         router().push(chapterUrl)
         popoverVisible(false)
     }
 
 
-    const onChangeLocale = (locale:string) => {
+    const onChangeLanguages = (locale:string) => {
         // 修改该 url query string locale
         window.location.search = `locale=${locale}`
     }
@@ -225,15 +233,15 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                 </div>
                 <div>
                     <Button $root:style={{...common.button}} $root:ref={localeButtonPosition.ref} $root:onClick={() => localePopoverVisible(true)}>
-                        <span style={{marginRight: 10}}>Locale</span>
+                        <span style={{marginRight: 10}}>Language</span>
                         <DownIcon />
                     </Button>
                     <Popover targetPosition={localeButtonPosition} visible={localePopoverVisible} align={{right:'right', top:'bottom'}}>
                         {() => (
                             <div style={localeMenuStyle}>
-                                {locales.map(locale => (
-                                    <div onClick={() => onChangeLocale(locale)}>
-                                        <div>{locale}</div>
+                                {locales.map(lang => (
+                                    <div onClick={() => onChangeLanguages(lang)}>
+                                        <div>{lang}</div>
                                     </div>
                                 ))}
                             </div>
