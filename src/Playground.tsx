@@ -43,7 +43,10 @@ const docStyle = {
     lineHeight:1.8,
     '& ul': {
         paddingLeft: 16,
-        margin:0
+        margin:0,
+        display:'flex',
+        flexDirection:'column',
+        gap: 16
     }
 }
 

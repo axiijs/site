@@ -2,7 +2,7 @@
 import {atom, computed, RenderContext, RxList} from 'axii'
 export function App({}, { createElement }: RenderContext) {
 
-    const name = atom('world')
+    const name = atom('')
     const greeting = computed(() => `hello ${name()}`)
 
     const newItem = atom('')
@@ -18,7 +18,7 @@ export function App({}, { createElement }: RenderContext) {
     }
 
     const list = new RxList([{
-        name:'swim',
+        name:'swimming',
         score: 100,
     }])
 
@@ -37,13 +37,13 @@ export function App({}, { createElement }: RenderContext) {
 
     return <div>
         <div>
-            <input value={name} onInput={(e:any) => name(e.target.value)}/>
+            <input placeholder={"enter name"} value={name} onInput={(e:any) => name(e.target.value)}/>
         </div>
         <div>{greeting}</div>
 
         <div>
-            <input value={newItem} onInput={(e:any)=>newItem(e.target.value)}/>
-            <input type='number' value={newScore} onInput={(e:any)=>newScore(parseInt(e.target.value, 10))}/>
+            <input placeholder={"enter subject name"} value={newItem} onInput={(e:any)=>newItem(e.target.value)}/>
+            <input placeholder={"enter subject score"} type='number' value={newScore} onInput={(e:any)=>newScore(parseInt(e.target.value, 10))}/>
             <button onClick={onAdd}>add</button>
         </div>
         <table>
