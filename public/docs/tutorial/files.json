@@ -45,7 +45,7 @@
         }
       },
       {
-        "name": "3-component_configuration",
+        "name": "3-component_AOP",
         "files": {
           "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nimport { Child } from \"./Child\";\n\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n\n\n    return (\n        <Child\n            $main:value ={name}\n            $root:style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}\n            $main:_style={() => ({border: '1px solid black', padding: '10px'})}\n            // TODO use/props/_props 还有什么？？？\n        />\n    )\n}",
           "Child.tsx": "import {RenderContext} from \"axii\";\n\nexport function Child({}, {createElement}: RenderContext) {\n    return (\n        <div as=\"root\">\n            <input as={\"main\"}></input>\n            <button as={\"trigger\"}></button>\n        </div>\n    )\n}\n",

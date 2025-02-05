@@ -28,7 +28,7 @@
         "content": "<div><p>RxList/RxMap/RxSet 是 axii 内置响应式数据结构。\n他们的 api 与 JavaScript 的 Array/Map/Set 类似。\n更详细的例子可以参考它们的测试用例。</p>\n<ul>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxList.spec.ts\">RxList</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxMap.spec.ts\">RxMap</a></li>\n<li><a href=\"https://github.com/sskyy/data0/blob/main/__tests__/rxSet.spec.ts\">RxSet</a></li>\n</ul></div>"
       },
       {
-        "name": "3-component_configuration",
+        "name": "3-component_AOP",
         "content": "<div><p>在 axii 中用户可以很轻松地将子组件/ DOM 节点暴露给外部，省去无意义的封装。\n在 想要暴露的节点上使用 <code>as</code> 命名即可。</p></div>"
       },
       {
