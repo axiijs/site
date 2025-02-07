@@ -47,8 +47,9 @@
       {
         "name": "3-component_AOP",
         "files": {
-          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nimport { Child } from \"./Child\";\n\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n\n\n    return (\n        <Child\n            $main:value ={name}\n            $root:style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}\n            $main:_style={() => ({border: '1px solid black', padding: '10px'})}\n            // TODO use/props/_props 还有什么？？？\n        />\n    )\n}",
-          "Child.tsx": "import {RenderContext} from \"axii\";\n\nexport function Child({}, {createElement}: RenderContext) {\n    return (\n        <div as=\"root\">\n            <input as={\"main\"}></input>\n            <button as={\"trigger\"}></button>\n        </div>\n    )\n}\n",
+          "App.tsx": "/* @jsx createElement */\nimport {atom, RenderContext} from 'axii'\nimport { Child } from \"./Child.js\";\n\nexport function App({}, { createElement }: RenderContext) {\n    const name = atom('world')\n\n\n    return (\n        <Child\n            $root:style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}\n            $main:value ={name}\n            $main:style_={() => ({border: '1px solid black', padding: '10px'})}\n            $grandChild={{'$root:style': {color: 'cyan'}}}\n        />\n    )\n}",
+          "Child.tsx": "/* @jsx createElement */\nimport {RenderContext} from \"axii\";\nimport {GrandChild} from \"./GrandChild.js\";\nexport function Child({}, {createElement}: RenderContext) {\n    return (\n        <div as=\"root\">\n            <input as={\"main\"}></input>\n            <button as={\"trigger\"}>Submit</button>\n            <GrandChild as=\"grandChild\"></GrandChild>\n        </div>\n    )\n}\n",
+          "GrandChild.tsx": "/* @jsx createElement */\nimport {RenderContext} from \"axii\";\n\nexport function GrandChild({}, {createElement}: RenderContext) {\n    return (\n        <div as=\"root\">\n            this is grand child\n        </div>\n    )\n}\n",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
         }
       },
