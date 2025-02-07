@@ -1,8 +1,9 @@
 import {cp, readdir, readFile, writeFile, rm} from 'fs/promises'
 import {execSync} from "node:child_process";
 import { fileURLToPath} from "url";
+import rehypeStarryNight from 'rehype-starry-night'
 import {mkdirSync, existsSync} from "fs";
-import { compileSync } from '@mdx-js/mdx'
+import { compile } from '@mdx-js/mdx'
 import {build, defineConfig} from 'vite'
 import * as path from "node:path";
 import { JSDOM } from 'jsdom'
@@ -54,8 +55,10 @@ export function render(el){
 
 async function generateHTML(inputFile: string) {
     if (existsSync(inputFile)) {
-        console.log(await readFile(inputFile, 'utf-8'))
-        const compiledContent = compileSync(await readFile(inputFile, 'utf-8'), {jsxImportSource:'axii'}).value as string
+        const content = (await readFile(inputFile, 'utf-8')) || ''
+        console.log(content)
+
+        const compiledContent = String(await compile(content, {jsxImportSource:'axii', rehypePlugins: [rehypeStarryNight]}))
         const docEntry = path.join(path.dirname(inputFile), 'doc.js')
         await writeFile(docEntry, compiledContent)
 

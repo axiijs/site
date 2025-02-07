@@ -8,10 +8,14 @@ export function renderSandbox( code: string) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Preview</title>
   <style>
-    html,body{
+    html{
         height:100%;
+        overflow: hidden;
     }
     body{
+        padding:10px !important;
+        box-sizing: border-box;
+        height:100%;
         outline: none;
         border: none;
         background: rgba(50,50,50);
@@ -20,13 +24,14 @@ export function renderSandbox( code: string) {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;        
+        overflow: auto;
     }
     * {
       padding: 0;
       margin: 0;
     }
   </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
 </head>
 <body>
 <div id="root">

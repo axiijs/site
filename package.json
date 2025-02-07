@@ -21,6 +21,7 @@
     "@types/chroma-js": "^2.4.4",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.11.30",
+    "@wooorm/starry-night": "^3.6.0",
     "axii": "^2.7.7",
     "axii-icon-park": "^2.1.0",
     "axii-ui": "^1.0.5",
@@ -32,6 +33,7 @@
     "data0-worker": "^2.0.4",
     "jsdom": "^25.0.1",
     "monaco-editor": "^0.48.0",
+    "rehype-starry-night": "^2.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "thememirror": "^2.0.1",
     "vitest": "^2.1.5"

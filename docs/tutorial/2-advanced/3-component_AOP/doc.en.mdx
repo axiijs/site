@@ -47,8 +47,7 @@ In this way, if a child component `Child` has multiple nodes labeled with `as="r
 
 In the `Child` component, you might write:
 
-```tsx
-
+```typescript
 / @jsx createElement /
 import { RenderContext } from "axii";
 import { GrandChild } from "./GrandChild.js";
@@ -65,7 +64,7 @@ export function Child({}, { createElement }: RenderContext) {
 
 And in `GrandChild`:
 
-```tsx
+```typescript
 / @jsx createElement /
 import { RenderContext } from "axii";
 export function GrandChild({}, { createElement }: RenderContext) {

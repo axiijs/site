@@ -18,6 +18,7 @@ import DownIcon from "./icons/Down";
 import {createWorkerClient} from 'data0-worker'
 import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
 import {LogoText} from "./icons/Text";
+import '@wooorm/starry-night/style/dark'
 
 
 type Section = {name: string, files: {[k:string]: string}}
@@ -63,7 +64,9 @@ const docStyle = {
         background: 'rgba(255,255,255,0.1)',
         padding: 10,
         borderRadius: 4,
-        overflow:'auto'
+        overflow:'auto',
+        fontSize: 14,
+        fontFamily: 'monospace'
     }
 }
 
