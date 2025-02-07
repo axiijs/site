@@ -56,8 +56,15 @@ const docStyle = {
     },
     '& a:visited': {
         color: 'white'
-    }
+    },
 
+    '& pre': {
+        border: `1px solid #fff`,
+        background: 'rgba(255,255,255,0.1)',
+        padding: 10,
+        borderRadius: 4,
+        overflow:'auto'
+    }
 }
 
 const colors = {
@@ -250,7 +257,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                 </div>
             </div>
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
-                <div style={{ padding: 20, width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light}}>
+                <div style={{ padding: 20, width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light, overflow:'auto'}}>
                     <div>
                         <div style={chapterMenuStyle} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
                             <span style={{flex:1, ...common.layout.oneLine()}}>

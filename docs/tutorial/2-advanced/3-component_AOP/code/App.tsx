@@ -1,6 +1,6 @@
 /* @jsx createElement */
 import {atom, RenderContext} from 'axii'
-import { Child } from "./Child";
+import { Child } from "./Child.js";
 
 export function App({}, { createElement }: RenderContext) {
     const name = atom('world')
@@ -8,10 +8,10 @@ export function App({}, { createElement }: RenderContext) {
 
     return (
         <Child
-            $main:value ={name}
             $root:style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
-            $main:_style={() => ({border: '1px solid black', padding: '10px'})}
-            // TODO use/props/_props 还有什么？？？
+            $main:value ={name}
+            $main:style_={() => ({border: '1px solid black', padding: '10px'})}
+            $grandChild={{'$root:style': {color: 'cyan'}}}
         />
     )
 }
