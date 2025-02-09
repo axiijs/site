@@ -56,7 +56,13 @@ export const innerCommon = createCommon(
 export const common = {
     ...innerCommon,
     link: {
+        color: 'white',
         cursor: 'pointer',
+        '&:link': {
+            color: 'white',
+            textDecoration: 'none',
+
+        },
         '&:hover': {
             textDecoration: 'underline',
         }

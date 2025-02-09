@@ -42,6 +42,7 @@ const BASE_URL = '/playground'
 
 const docStyle = {
     lineHeight:1.8,
+    padding:20,
     '& ul': {
         paddingLeft: 16,
         margin:0,
@@ -79,10 +80,11 @@ const colors = {
 const chapterMenuStyle = {
     boxSizing:'border-box',
     width:'100%',
-    padding: [4, 10],
-    border: `1px solid ${colors.separator}`,
+    padding: [20],
+    fontSize:18,
+    fontWeight:500,
+    borderBottom: `1px solid ${colors.separator}`,
     cursor:'pointer',
-    borderRadius: 4,
     overflow:'hidden',
     ...common.layout.flexRow({gap:10, align:'center'}),
     flexWrap:'nowrap'
@@ -199,7 +201,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
     const selectorPosition = createStateFromRef(createReactivePosition({type: 'interval', duration: 100}))
     const popoverVisible = atom(false)
     const align = {
-        left:'left',
+        right:'right',
         top: 'bottom'
     }
 
@@ -232,14 +234,11 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
         }}>
             <div style={{padding: [10, 20], borderBottom:`1px solid ${colors.separator}`, ...common.layout.flexRow({align:'center'}),...common.layout.twoSide(false), }}>
                 <div style={{...common.layout.flexRow({gap:20, align:'center'})}}>
-                    <div style={{paddingRight:40, ...common.layout.flexRow({gap:20, align:'center'})}}>
-                        <LogoText/>
-                    </div>
-                    <div style={{...common.link}}>Tutorial</div>
-                    <div style={{...common.link}}>Reference</div>
-                    <div style={{...common.link}}>Axii UI</div>
-                    <div style={{...common.link}}>Utilities</div>
-                    <div style={{...common.link}}>Github</div>
+                    <a href={'/'}>
+                        <img src={'/logos/axii-logo-white.svg'} width={40}/>
+                    </a>
+                    <a style={{...common.link}} href={'https://axii.dev/reference'}>Reference</a>
+                    <a style={{...common.link}} href={'https://github.com/axiijs/axii'}>Github</a>
                 </div>
                 <div>
                     <Button $root:style={{...common.button}} $root:ref={localeButtonPosition.ref} $root:onClick={() => localePopoverVisible(true)}>
@@ -260,10 +259,10 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                 </div>
             </div>
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
-                <div style={{ padding: 20, width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light, overflow:'auto'}}>
+                <div style={{width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light, overflow:'auto'}}>
                     <div>
                         <div style={chapterMenuStyle} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
-                            <span style={{flex:1, ...common.layout.oneLine()}}>
+                            <span style={{flex:1, }}>
                                 {() => router()?.handler() ?
                                     `${router().handler()!.chapter.replace(/\d+-/, '')}/${router().handler()!.name.replace(/\d+-/, '').replaceAll('_', ' ')}` :
                                     null
@@ -271,7 +270,9 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                             </span>
                             <DownIcon/>
                         </div>
-                        <Popover targetPosition={selectorPosition} visible={popoverVisible} align={align}>
+                        <Popover targetPosition={selectorPosition} visible={popoverVisible} align={align}
+                                 $root:style={{backgroundColor: 'rgba(0,0,0, 0.1)', backdropFilter: 'blur(1px)'}}
+                        >
                             {() => (
                                 <div style={{
                                     padding: 20,

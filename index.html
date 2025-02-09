@@ -19,8 +19,8 @@
 
 
         .left {
-            /*background-color: #000;*/
-            /*color: #fff;*/
+            background-color: #000;
+            color: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -29,7 +29,7 @@
             gap: 30px;
         }
         .highlights{
-            color: #999;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -40,6 +40,11 @@
         .logo {
             font-size: 4em;
             font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap:30px;
         }
 
         .right {
@@ -108,7 +113,10 @@
 <body>
 <div id="root">
     <div class="left block">
-        <div class="logo">Axii</div>
+        <div class="logo">
+            <img src="logos/axii-logo-white.svg" alt="Axii Logo" width="50%" />
+            <div>Axii</div>
+        </div>
         <div class="badges">
             <img alt="NPM Version" src="https://img.shields.io/npm/v/axii?style=flat-square&color=%23f1f1f1">
         </div>
