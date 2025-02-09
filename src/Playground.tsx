@@ -91,8 +91,10 @@ const chapterMenuStyle = {
 }
 
 const localeMenuStyle = {
-    borderRadius: 4,
-    border: `1px solid ${common.colorScheme.blacks.outline}`, background: common.colorScheme.blacks.outline,...common.layout.flexColumn({gap:10}),
+    borderRadius: 6,
+    border: `1px solid ${common.colorScheme.blacks.outline}`,
+    background: '#191919',
+    ...common.layout.flexColumn({gap:10}),
     '& > div': {
         padding: [10, 20],
         cursor: 'pointer',
@@ -276,8 +278,10 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                             {() => (
                                 <div style={{
                                     padding: 20,
-                                    borderRadius: 4,
-                                    border: `1px solid ${common.colorScheme.blacks.outline}`, background: common.colorScheme.blacks.outline,...common.layout.flexColumn({gap:10})}}>
+                                    borderRadius: 6,
+                                    border: `1px solid ${common.colorScheme.blacks.outline}`,
+                                    background: '#191919',
+                                    ...common.layout.flexColumn({gap:10})}}>
                                     {chapters.map(chapter => (
                                         <div style={{}}>
                                             <div style={{marginBottom: 10, color: '#aaa', fontWeight:'bold'}}>{chapter.name.replace('-', '. ')}</div>
