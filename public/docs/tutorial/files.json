@@ -77,7 +77,7 @@
         }
       },
       {
-        "name": "7-create_reactive_data_from_dom_attr",
+        "name": "7-create_reactive_data_from_dom_attribute",
         "files": {
           "App.tsx": "/* @jsx createElement */\nimport {atom, autorun, once, RenderContext, reactiveSize, reactiveScrollPosition, createReactivePosition, createReactiveDragPosition, createReactiveDragTarget} from 'axii'\nexport function App({}, { createElement, createStateFromRef }: RenderContext) {\n\n    // TODO 演示 drag\n    const innerScrollPosition = createStateFromRef(reactiveScrollPosition)\n\n\n    return <div style={{display:'flex', flexDirection:'column', alignItems:'center'}} >\n        <div>{() => `position: ${innerScrollPosition()?.scrollLeft}, ${innerScrollPosition()?.scrollTop}`}</div>\n        <div  ref={innerScrollPosition.ref} style={{height:100, width:100, overflow:'scroll', border:'1px solid #fff'}}>\n            <div style={{height:200, width:100, background:'gray'}}> scroll this </div>\n        </div>\n    </div>\n}",
           "index.tsx": "/*@jsx createElement*/\nimport {createRoot, createElement, atom} from 'axii'\nimport { App } from './App.js'\nconst root = document.getElementById('root')!\nconst appRoot = createRoot(root)\nappRoot.render(<App/>)"
