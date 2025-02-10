@@ -106,6 +106,10 @@ const localeMenuStyle = {
 
 const locales = ['en', 'zh', 'ja']
 
+function capitalize(str:string) {
+    return `${str[0].toUpperCase()}${str.slice(1)}`
+}
+
 
 export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRef}: RenderContext) {
 
@@ -266,7 +270,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                         <div style={chapterMenuStyle} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
                             <span style={{flex:1, }}>
                                 {() => router()?.handler() ?
-                                    `${router().handler()!.chapter.replace(/\d+-/, '')}/${router().handler()!.name.replace(/\d+-/, '').replaceAll('_', ' ')}` :
+                                    `${capitalize(router().handler()!.chapter.replace(/\d+-/, ''))} / ${capitalize(router().handler()!.name.replace(/\d+-/, '').replaceAll('_', ' '))}` :
                                     null
                                 }
                             </span>
@@ -282,21 +286,29 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                                     border: `1px solid ${common.colorScheme.blacks.outline}`,
                                     background: '#191919',
                                     ...common.layout.flexColumn({gap:10})}}>
-                                    {chapters.map(chapter => (
-                                        <div style={{}}>
-                                            <div style={{marginBottom: 10, color: '#aaa', fontWeight:'bold'}}>{chapter.name.replace('-', '. ')}</div>
-                                            <div style={{paddingLeft:20, ...common.layout.flexColumn({gap:10})}}>
-                                                {chapter.sections.map(section => (
-                                                    <div
-                                                        style={() => ({...common.link,textDecoration: router()?.handler()?.name === section.name ? 'underline' : 'none'})}
-                                                        onClick={() => onSelectChapter(`/${chapter.name}/${section.name}`)}
-                                                    >
-                                                        {section.name.replace('-', '. ').replaceAll('_', ' ')}
-                                                    </div>
-                                                ))}
+                                    {chapters.map(chapter => {
+                                        const chapterNameArr = chapter.name.split('-')
+                                        return (
+                                            <div style={{}}>
+                                                <div style={{marginBottom: 10, color: '#aaa', fontWeight:'bold'}}>
+                                                    {chapterNameArr[0]}. {chapterNameArr[1].split('_').map(capitalize).join(' ')}
+                                                </div>
+                                                <div style={{paddingLeft:20, ...common.layout.flexColumn({gap:10})}}>
+                                                    {chapter.sections.map(section => {
+                                                        const sectionNameArr = section.name.split('-')
+                                                        return (
+                                                            <div
+                                                                style={() => ({...common.link,textDecoration: router()?.handler()?.name === section.name ? 'underline' : 'none'})}
+                                                                onClick={() => onSelectChapter(`/${chapter.name}/${section.name}`)}
+                                                            >
+                                                                {sectionNameArr[0]}. {sectionNameArr[1].split('_').map(capitalize).join(' ')}
+                                                            </div>
+                                                        )
+                                                    })}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        )
+                                    })}
                                 </div>
                             )}
                         </Popover>
