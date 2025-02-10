@@ -44,7 +44,7 @@
         "content": "<div><p>axii 支持使用 useEffect 和 useLayoutEffect 来创建副作用。</p>\n<p>除此之外，axii 还停工了一种更优雅的方式来处理副作用。\n用户可以申明一个继承自 ManualCleanup 的类，并实现 destroy 方法。任何在组件中实例化的 ManualCleanup 子类都会在组件销毁时自动调用 destroy 方法。</p></div>"
       },
       {
-        "name": "7-create_reactive_data_from_dom_attribute",
+        "name": "7-create_reactive_data_from_DOM_attribute",
         "content": "<div><p>dom 状态不是 reactive 的，我们往往需要：</p>\n<ul>\n<li>通过事件回调来监听状态变化。</li>\n<li>通过 api 来将数据的变化转化为 dom 状态的变化。</li>\n</ul>\n<p>axii 中提供了经常会用到的 dom 状态的响应式封装，用户也可以通过 createStateFromRef 来自定义 dom 状态的响应式封装。\n已有的封装有：</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
       },
       {

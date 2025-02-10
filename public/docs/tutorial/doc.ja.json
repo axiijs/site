@@ -44,7 +44,7 @@
         "content": "<div><p>axii は useEffect と useLayoutEffect を使用して副作用を作成することをサポートしています。</p>\n<p>さらに、axii は副作用を処理するためのより優雅な方法を提供しています。\nユーザーは ManualCleanup を継承したクラスを宣言し、destroy メソッドを実装することができます。コンポーネント内でインスタンス化された ManualCleanup のサブクラスは、コンポーネントが破棄されるときに自動的に destroy メソッドを呼び出します。</p></div>"
       },
       {
-        "name": "7-create_reactive_data_from_dom_attribute",
+        "name": "7-create_reactive_data_from_DOM_attribute",
         "content": "<div><p>DOM の状態はリアクティブではなく、以下のようなことが必要になります：</p>\n<ul>\n<li>イベントコールバックを通じて状態の変化を監視する。</li>\n<li>API を通じてデータの変化を DOM の状態の変化に変換する。</li>\n</ul>\n<p>axii は、よく使用される DOM 状態のリアクティブラッパーを提供しており、ユーザーは createStateFromRef を使用して DOM 状態のリアクティブラッパーをカスタマイズすることもできます。\n既存のラッパーには以下のものがあります：</p>\n<ul>\n<li>dom size（DOM サイズ）</li>\n<li>position（位置）</li>\n<li>drag position（ドラッグ位置）</li>\n<li>scroll position（スクロール位置）</li>\n</ul></div>"
       },
       {
