@@ -293,12 +293,22 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                                                 <div style={{marginBottom: 10, color: '#aaa', fontWeight:'bold'}}>
                                                     {chapterNameArr[0]}. {chapterNameArr[1].split('_').map(capitalize).join(' ')}
                                                 </div>
-                                                <div style={{paddingLeft:20, ...common.layout.flexColumn({gap:10})}}>
+                                                <div style={{paddingLeft:9, ...common.layout.flexColumn({gap:4})}}>
                                                     {chapter.sections.map(section => {
                                                         const sectionNameArr = section.name.split('-')
+                                                        const style = () => ({
+                                                            padding: [6, 14],
+                                                            cursor: 'pointer',
+                                                            '&:hover': {
+                                                                backgroundColor: router()?.handler()?.name === section.name ? '#fff': '#666',
+                                                            },
+                                                            backgroundColor: router()?.handler()?.name === section.name ? '#fff': 'transparent',
+                                                            color: router()?.handler()?.name === section.name ? '#000': '#fff',
+                                                        })
+
                                                         return (
                                                             <div
-                                                                style={() => ({...common.link,textDecoration: router()?.handler()?.name === section.name ? 'underline' : 'none'})}
+                                                                style={style}
                                                                 onClick={() => onSelectChapter(`/${chapter.name}/${section.name}`)}
                                                             >
                                                                 {sectionNameArr[0]}. {sectionNameArr[1].split('_').map(capitalize).join(' ')}
@@ -335,11 +345,12 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                         }}>
                             <div>{filesWithSelected.map(([file, selected]) => {
                                 const style = () => ({
-                                    padding: '10px',
+                                    padding: [6, 10],
                                     cursor: 'pointer',
-                                    color: selected() ? 'rgba(120, 86, 255, 1)': 'white',
+                                    color: selected() ? '#000': '#fff',
+                                    backgroundColor: selected() ? '#fff': 'transparent',
                                     '&:hover': {
-                                        textDecoration: 'underline'
+                                        backgroundColor: selected() ? '#fff': '#666'
                                     }
                                 })
                                 return (
