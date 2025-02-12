@@ -358,11 +358,12 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                                 )
                             })}</div>
                         </div>
-                        <div style={{flexGrow: 1, overflow:'auto', maxWidth:'100%',minWidth:0, background: common.colorScheme.blacks.dark}}>
+                        <div style={{position:'relative',flexGrow: 1, overflow:'auto', maxWidth:'100%',minWidth:0, background: common.colorScheme.blacks.dark}}>
                             {() => {
                                 const ext = editingFile().split('.').pop()
                                 return <CodeMirror value={files.get(editingFile())} language={ext} onSave={onCodeSave}/>
                             }}
+                            <div style={{position:'absolute', right:0, bottom:0, background:'#000', color:'#999', padding:[0, 8]}}>press cmd+s to rerun</div>
                         </div>
                     </div>
                     <div style={{
