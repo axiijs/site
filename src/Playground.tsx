@@ -13,7 +13,7 @@ import {renderSandbox} from "./sandbox";
 import {CodeMirror} from "./component/CodeMirror";
 import {Button, Popover} from "axii-ui";
 import {common} from "./theme";
-import {Router} from 'data0-router'
+import {Router, createBrowserHistory} from 'router0'
 import DownIcon from "./icons/Down";
 import {createWorkerClient} from 'data0-worker'
 import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
@@ -137,6 +137,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                     path: `/${section.chapter}/${section.name}`,
                     handler: section
                 })),
+                createBrowserHistory(),
                 BASE_URL
             )
             router.add([{
@@ -164,7 +165,15 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
     })
 
 
-    const editingFile = atom('App.tsx')
+    const editingFile = computed<string>(() => {
+        console.log('rerender editing file', router()?.searchParams().file)
+        if (router()?.searchParams().file) return router().searchParams().file
+        if (files.data.get('App.tsx')) return 'App.tsx'
+        if (files.data.get('App.ts')) return 'App.ts'
+        if (files.data.get('index.ts')) return 'index.ts'
+        if (files.data.get('index.tsx')) return 'index.tsx'
+        return ''
+    })
 
 
     const compileAction = new SingleAction(()=> {
@@ -227,9 +236,12 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
 
     const onChangeLanguages = (locale:string) => {
         // 修改该 url query string locale
-        window.location.search = `locale=${locale}`
+        router().updateSearchParams({locale})
     }
 
+    const changeEditingFile = (file:string) => {
+        router().updateSearchParams({file})
+    }
 
     return (
         <div style={{
@@ -354,7 +366,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                                     }
                                 })
                                 return (
-                                    <div style={style} onClick={() => editingFile(file)}>{file}</div>
+                                    <div style={style} onClick={() => changeEditingFile(file)}>{file}</div>
                                 )
                             })}</div>
                         </div>
