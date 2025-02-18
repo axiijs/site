@@ -1,6 +1,6 @@
 /* @jsx createElement */
 import {atom, autorun, Component, ContextProvider, once, RenderContext} from 'axii'
-import { Router } from 'data0-router'
+import { Router } from 'router0'
 import {RouterContext} from "./RouterContext.js";
 import {Pop} from "./Pop.js";
 import {Jazz} from "./Jazz.js";

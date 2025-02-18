@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Axii | A Reactive Data Based Frontend Framework</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
     <style>
         html, body {
             height: 100%;
@@ -19,20 +23,17 @@
 
 
         .left {
-            /*background-color: #000;*/
-            /*color: #fff;*/
+            background-color: #000;
+            color: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 50%;
-            &:hover{
-                background-color: #f0f0f0;
-            }
             gap: 30px;
         }
         .highlights{
-            color: #999;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -43,6 +44,11 @@
         .logo {
             font-size: 4em;
             font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap:30px;
         }
 
         .right {
@@ -61,10 +67,9 @@
                 justify-content: center;
                 align-items: center;
                 position: relative;
-
+                cursor: pointer;
                 &:hover{
                     background-color: #f0f0f0;
-                    cursor: pointer;
                 }
 
                 &>*:nth-child(2){
@@ -83,7 +88,9 @@
                         &:nth-child(2){
                             z-index: 2;
                             position: absolute;
+                            margin-top:10px;
                             color: #646464;
+                            line-height:1.6;
                         }
                     }
                 }
@@ -112,7 +119,10 @@
 <body>
 <div id="root">
     <div class="left block">
-        <div class="logo">Axii</div>
+        <div class="logo">
+            <img src="logos/axii-logo-white.svg" alt="Axii Logo" width="50%" />
+            <div>Axii</div>
+        </div>
         <div class="badges">
             <img alt="NPM Version" src="https://img.shields.io/npm/v/axii?style=flat-square&color=%23f1f1f1">
         </div>
@@ -123,7 +133,7 @@
         </div>
     </div>
     <div class="right">
-        <a href="./playground.html">
+        <a href="/playground.html">
             <div>TUTORIAL</div>
 
             <div>
@@ -131,7 +141,7 @@
                 <div>Learn Axii with interactive examples.</div>
             </div>
         </a>
-        <a  href="./docs/api/axii">
+        <a  href="/docs/api/axii">
             <div>API</div>
 
             <div>

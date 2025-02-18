@@ -44,7 +44,7 @@
         "content": "<div><p>axii supports using useEffect and useLayoutEffect to create side effects.</p>\n<p>Additionally, axii provides a more elegant way to handle side effects.\nUsers can declare a class that inherits from ManualCleanup and implement the destroy method. Any ManualCleanup subclass instantiated in a component will automatically call the destroy method when the component is destroyed.</p></div>"
       },
       {
-        "name": "7-create_reactive_data_from_dom_attr",
+        "name": "7-reactify_DOM_state",
         "content": "<div><p>DOM states are not reactive, and we often need to:</p>\n<ul>\n<li>Listen to state changes through event callbacks.</li>\n<li>Transform data changes into DOM state changes through APIs.</li>\n</ul>\n<p>axii provides reactive wrappers for commonly used DOM states, and users can also customize DOM state reactive wrappers using createStateFromRef.\nExisting wrappers include:</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
       },
       {

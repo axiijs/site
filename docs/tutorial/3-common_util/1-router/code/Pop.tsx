@@ -1,6 +1,6 @@
 /* @jsx createElement */
 import {Component, RenderContext} from 'axii'
-import {Router} from 'data0-router'
+import {Router} from 'router0'
 import {RouterContext} from "./RouterContext.js";
 import {PopItem} from "./PopItem.js";
 

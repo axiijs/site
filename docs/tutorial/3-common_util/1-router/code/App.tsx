@@ -1,6 +1,6 @@
 /* @jsx createElement */
 import {atom, autorun, ContextProvider, once, RenderContext} from 'axii'
-import { Router, createMemoryHistory } from 'data0-router'
+import { Router, createMemoryHistory } from 'router0'
 import { Music} from "./Music.js";
 import { Sport } from "./Sport.js";
 import {RouterContext} from "./RouterContext.js";
@@ -18,7 +18,7 @@ export function App({}, { createElement, createPortal }: RenderContext) {
     }, {
         path: '/',
         redirect: '/music',
-    }],  undefined, undefined, createMemoryHistory())
+    }],  createMemoryHistory() )
 
     const path = atom(router.history.location.pathname)
     router.history.listen((event) => {
