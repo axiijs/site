@@ -45,7 +45,7 @@
       },
       {
         "name": "7-reactify_DOM_state",
-        "content": "<div><p>DOM states are not reactive, and we often need to:</p>\n<ul>\n<li>Listen to state changes through event callbacks.</li>\n<li>Transform data changes into DOM state changes through APIs.</li>\n</ul>\n<p>axii provides reactive wrappers for commonly used DOM states, and users can also customize DOM state reactive wrappers using createStateFromRef.\nExisting wrappers include:</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
+        "content": "<div><p>DOM states are not reactive, and we often need to:</p>\n<ul>\n<li>Listen to state changes through event callbacks.</li>\n<li>Transform data changes into DOM state changes through APIs.</li>\n</ul>\n<p>axii provides reactive wrappers for commonly used DOM states, and users can also customize DOM state reactive wrappers using RxDOMState.\nExisting wrappers include:</p>\n<ul>\n<li>RxDOMSize</li>\n<li>RxDOMRect</li>\n<li>RxDragPosition</li>\n<li>RxScrollPosition</li>\n</ul></div>"
       },
       {
         "name": "8-portal",

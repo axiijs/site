@@ -6,7 +6,7 @@ import {common} from "./theme";
 import {createBrowserHistory, Router} from 'router0'
 import DownIcon from "./icons/Down";
 import {createWorkerClient} from 'data0-worker'
-import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
+import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'action0'
 import '@wooorm/starry-night/style/dark'
 
 

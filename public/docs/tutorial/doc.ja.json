@@ -45,7 +45,7 @@
       },
       {
         "name": "7-reactify_DOM_state",
-        "content": "<div><p>DOM の状態はリアクティブではなく、以下のようなことが必要になります：</p>\n<ul>\n<li>イベントコールバックを通じて状態の変化を監視する。</li>\n<li>API を通じてデータの変化を DOM の状態の変化に変換する。</li>\n</ul>\n<p>axii は、よく使用される DOM 状態のリアクティブラッパーを提供しており、ユーザーは createStateFromRef を使用して DOM 状態のリアクティブラッパーをカスタマイズすることもできます。\n既存のラッパーには以下のものがあります：</p>\n<ul>\n<li>dom size（DOM サイズ）</li>\n<li>position（位置）</li>\n<li>drag position（ドラッグ位置）</li>\n<li>scroll position（スクロール位置）</li>\n</ul></div>"
+        "content": "<div><p>DOM の状態はリアクティブではなく、以下のようなことが必要になります：</p>\n<ul>\n<li>イベントコールバックを通じて状態の変化を監視する。</li>\n<li>API を通じてデータの変化を DOM の状態の変化に変換する。</li>\n</ul>\n<p>axii は、よく使用される DOM 状態のリアクティブラッパーを提供しており、ユーザーは RxDOMState を使用して DOM 状態のリアクティブラッパーをカスタマイズすることもできます。\n既存のラッパーには以下のものがあります：</p>\n<ul>\n<li>RxDOMESize（DOM サイズ）</li>\n<li>RxDOMRect（位置）</li>\n<li>RxDragPosition（ドラッグ位置）</li>\n<li>RxScrollPosition（スクロール位置）</li>\n</ul></div>"
       },
       {
         "name": "8-portal",

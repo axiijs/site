@@ -45,7 +45,7 @@
       },
       {
         "name": "7-reactify_DOM_state",
-        "content": "<div><p>dom 状态不是 reactive 的，我们往往需要：</p>\n<ul>\n<li>通过事件回调来监听状态变化。</li>\n<li>通过 api 来将数据的变化转化为 dom 状态的变化。</li>\n</ul>\n<p>axii 中提供了经常会用到的 dom 状态的响应式封装，用户也可以通过 createStateFromRef 来自定义 dom 状态的响应式封装。\n已有的封装有：</p>\n<ul>\n<li>dom size</li>\n<li>position</li>\n<li>drag position</li>\n<li>scroll position</li>\n</ul></div>"
+        "content": "<div><p>dom 状态不是 reactive 的，我们往往需要：</p>\n<ul>\n<li>通过事件回调来监听状态变化。</li>\n<li>通过 api 来将数据的变化转化为 dom 状态的变化。</li>\n</ul>\n<p>axii 中提供了经常会用到的 dom 状态的响应式封装，用户也可以继承 ReactiveDOMState 来自定义 dom 状态的响应式封装。\n已有的封装有：</p>\n<ul>\n<li>RxDOMSize</li>\n<li>RxDOMRect</li>\n<li>RxDragPosition</li>\n<li>RxScrollPosition</li>\n</ul></div>"
       },
       {
         "name": "8-portal",

@@ -34,6 +34,9 @@ export default {
           return 'playground.html'
         }
       }
+    },
+    watch: {
+      include: ['docs/**/*.ts', 'docs/**/*.tsx']
     }
   }
 }
