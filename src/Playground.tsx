@@ -1,23 +1,12 @@
-import {
-    atom,
-    autorun,
-    computed,
-    createElement,
-    createReactivePosition,
-    RenderContext,
-    RxList,
-    RxMap,
-    STATUS_CLEAN
-} from "axii";
+import {atom, autorun, computed, createElement, RenderContext, RxDOMRect, RxList, RxMap, STATUS_CLEAN} from "axii";
 import {renderSandbox} from "./sandbox";
 import {CodeMirror} from "./component/CodeMirror";
 import {Button, Popover} from "axii-ui";
 import {common} from "./theme";
-import {Router, createBrowserHistory} from 'router0'
+import {createBrowserHistory, Router} from 'router0'
 import DownIcon from "./icons/Down";
 import {createWorkerClient} from 'data0-worker'
 import {SingleAction, STATUS_ERROR, STATUS_PROCESSING, STATUS_SUCCESS} from 'data0-action'
-import {LogoText} from "./icons/Text";
 import '@wooorm/starry-night/style/dark'
 
 
@@ -111,7 +100,7 @@ function capitalize(str:string) {
 }
 
 
-export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRef}: RenderContext) {
+export function Playground({locale = 'en'} , {useLayoutEffect}: RenderContext) {
 
     // 1. parse url 的 query， 得到 codeURL
     const chapterURL = `/docs/tutorial/files.json`
@@ -213,14 +202,14 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
 
 
 
-    const selectorPosition = createStateFromRef(createReactivePosition({type: 'interval', duration: 100}))
+    const rxSelectorPosition = new RxDOMRect(atom(null),{type: 'interval', duration: 100})
     const popoverVisible = atom(false)
     const align = {
         right:'right',
         top: 'bottom'
     }
 
-    const localeButtonPosition = createStateFromRef(createReactivePosition({type: 'interval', duration: 100}))
+    const rxLocaleButtonPosition = new RxDOMRect(atom(null),{type: 'interval', duration: 100})
     const localePopoverVisible = atom(false)
 
 
@@ -259,11 +248,11 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                     <a style={{...common.link}} href={'https://github.com/axiijs/axii'}>Github</a>
                 </div>
                 <div>
-                    <Button $root:style={{...common.button}} $root:ref={localeButtonPosition.ref} $root:onClick={() => localePopoverVisible(true)}>
+                    <Button $root:style={{...common.button}} $root:ref={rxLocaleButtonPosition.ref} $root:onClick={() => localePopoverVisible(true)}>
                         <span style={{marginRight: 10}}>Language</span>
                         <DownIcon />
                     </Button>
-                    <Popover targetPosition={localeButtonPosition} visible={localePopoverVisible} align={{right:'right', top:'bottom'}}>
+                    <Popover targetPosition={rxLocaleButtonPosition.value} visible={localePopoverVisible} align={{right:'right', top:'bottom'}}>
                         {() => (
                             <div style={localeMenuStyle}>
                                 {locales.map(lang => (
@@ -279,7 +268,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
             <div style={{background: colors.panel, ...common.layout.middleGrow(false, 2)}}>
                 <div style={{width:'30%',borderRight:`1px solid ${colors.separator}`, background: common.colorScheme.blacks.light, overflow:'auto'}}>
                     <div>
-                        <div style={chapterMenuStyle} ref={selectorPosition.ref} onclick={() => popoverVisible(true)}>
+                        <div style={chapterMenuStyle} ref={rxSelectorPosition.ref} onclick={() => popoverVisible(true)}>
                             <span style={{flex:1, }}>
                                 {() => router()?.handler() ?
                                     `${capitalize(router().handler()!.chapter.replace(/\d+-/, ''))} / ${capitalize(router().handler()!.name.replace(/\d+-/, '').replaceAll('_', ' '))}` :
@@ -288,7 +277,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect, createStateFromRe
                             </span>
                             <DownIcon/>
                         </div>
-                        <Popover targetPosition={selectorPosition} visible={popoverVisible} align={align}
+                        <Popover targetPosition={rxSelectorPosition.value} visible={popoverVisible} align={align}
                                  $root:style={{backgroundColor: 'rgba(0,0,0, 0.1)', backdropFilter: 'blur(1px)'}}
                         >
                             {() => (

@@ -16,6 +16,7 @@ global.SVGElement = globalDOM.window.SVGElement;
 global.DocumentFragment = globalDOM.window.DocumentFragment;
 global.Node = globalDOM.window.Node;
 global.HTMLOptionElement = globalDOM.window.HTMLOptionElement;
+global.HTMLSelectElement = globalDOM.window.HTMLSelectElement;
 
 import ResizeObserver from 'resize-observer-polyfill'
 global.ResizeObserver = ResizeObserver

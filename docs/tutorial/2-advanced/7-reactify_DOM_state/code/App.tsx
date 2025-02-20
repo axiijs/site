@@ -1,15 +1,18 @@
 /* @jsx createElement */
-import {atom, autorun, once, RenderContext, reactiveSize, reactiveScrollPosition, createReactivePosition, createReactiveDragPosition, createReactiveDragTarget} from 'axii'
-export function App({}, { createElement, createStateFromRef }: RenderContext) {
+import { RenderContext} from 'axii'
+import {ScrollPosition} from "./ScrollPosition.js";
+import {Size} from "./Size.js";
+import {ReactiveDragPosition} from "./DragPosition.js";
 
-    // TODO 演示 drag
-    const innerScrollPosition = createStateFromRef(reactiveScrollPosition)
+export function App({}, { createElement }: RenderContext) {
 
 
     return <div style={{display:'flex', flexDirection:'column', alignItems:'center'}} >
-        <div>{() => `position: ${innerScrollPosition()?.scrollLeft}, ${innerScrollPosition()?.scrollTop}`}</div>
-        <div  ref={innerScrollPosition.ref} style={{height:100, width:100, overflow:'scroll', border:'1px solid #fff'}}>
-            <div style={{height:200, width:100, background:'gray'}}> scroll this </div>
-        </div>
+        <h1>Drag Position</h1>
+        <ReactiveDragPosition />
+        <h1>Reactive Scroll Position</h1>
+        <ScrollPosition />
+        <h1>Reactive Size</h1>
+        <Size />
     </div>
 }
