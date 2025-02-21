@@ -18,6 +18,8 @@ export default {
       // 'data0-action': fileURLToPath(new URL('../axii-util/packages/action/src/index.ts', import.meta.url)),
       // 'router0': fileURLToPath(new URL('../router/src/index.ts', import.meta.url)),
       // 'axii': fileURLToPath(new URL('../axii/src/index.ts', import.meta.url)),
+      // 'data0': fileURLToPath(new URL('../data0/src/index.ts', import.meta.url)),
+      // 'statemachine0': fileURLToPath(new URL('../statemachine/src/index.ts', import.meta.url)),
     },
     dedupe: ['data0', 'axii']
   },

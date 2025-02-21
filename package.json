@@ -34,7 +34,7 @@
     "rehype-starry-night": "^2.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "router0": "^2.0.2",
-    "statemachine0": "^2.0.0",
+    "statemachine0": "^2.2.0",
     "thememirror": "^2.0.1"
   },
   "devDependencies": {

@@ -42,7 +42,8 @@ export function renderSandbox( code: string) {
         "data0": "https://esm.sh/data0@latest",
         "axii": "https://esm.sh/axii@latest",
         "action0": "https://esm.sh/action0@latest",
-        "router0": "https://esm.sh/router0@latest"
+        "router0": "https://esm.sh/router0@latest",
+        "statemachine0": "https://esm.sh/statemachine0@latest"
     }
   }
 </script>

@@ -67,6 +67,10 @@
       {
         "name": "2-action",
         "content": ""
+      },
+      {
+        "name": "3-statemachine",
+        "content": ""
       }
     ]
   }
