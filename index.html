@@ -2,11 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Axii | A Reactive Data Based Frontend Framework</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Axii - A high-performance reactive frontend framework with precise DOM updates, automatic incremental computation, and pure JSX syntax">
+    <meta name="keywords" content="Axii, frontend framework, reactive, JavaScript, JSX, DOM updates, web development">
+    <title>Axii - High Performance Reactive Frontend Framework</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Open Graph tags for better social sharing -->
+    <meta property="og:title" content="Axii - High Performance Reactive Frontend Framework">
+    <meta property="og:description" content="Build fast web applications with Axii - featuring precise DOM updates, automatic incremental computation, and pure JSX syntax">
+    <meta property="og:type" content="website">
+    
     <style>
         html, body {
             height: 100%;
@@ -37,7 +46,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            text-align: center;
+            text-align: left;
             padding: 0 20px;
         }
 
@@ -117,48 +126,63 @@
     </style>
 </head>
 <body>
-<div id="root">
-    <div class="left block">
-        <div class="logo">
-            <img src="logos/axii-logo-white.svg" alt="Axii Logo" width="50%" />
-            <div>Axii</div>
-        </div>
-        <div class="badges">
-            <img alt="NPM Version" src="https://img.shields.io/npm/v/axii?style=flat-square&color=%23f1f1f1">
-        </div>
-        <div class="highlights">
-            <div>Precise DOM updates without Virtual DOM for lightning-fast rendering.</div>
-            <div>Built-in high performance through automatic incremental computation.</div>
-            <div>Embrace simplicity with pure JSX, free from complex APIs and special syntax.</div>
-        </div>
-    </div>
-    <div class="right">
-        <a href="/playground.html">
-            <div>TUTORIAL</div>
-
-            <div>
-                <div>Tutorial</div>
-                <div>Learn Axii with interactive examples.</div>
+    <main id="root">
+        <section class="left block">
+            <header class="logo">
+                <img src="logos/axii-logo-white.svg" alt="Axii Framework Logo" width="50%" />
+                <h1>Axii</h1>
+            </header>
+            <div class="badges">
+                <img alt="Axii NPM Package Version" src="https://img.shields.io/npm/v/axii?style=flat-square&color=%23f1f1f1">
             </div>
-        </a>
-        <a  href="/docs/api/axii">
-            <div>API</div>
-
-            <div>
+            <section >
+                <ul class="highlights">
+                    <li>Precise DOM updates without Virtual DOM for lightning-fast rendering.</li>
+                    <li>Built-in high performance through automatic incremental computation.</li>
+                    <li>Embrace simplicity with pure JSX, free from complex APIs and special syntax.</li>
+                </ul>
+            </section>
+        </section>
+        <nav class="right">
+            <a href="/playground.html" aria-label="Go to Axii Tutorial">
+                <div>TUTORIAL</div>
+                <div>
+                    <h2>Tutorial</h2>
+                    <p>Learn Axii with interactive examples.</p>
+                </div>
+            </a>
+            <a href="/docs/api/axii" aria-label="View Axii API Documentation">
                 <div>API</div>
-                <div>All API definitions with types.</div>
-            </div>
-        </a>
-        <a href="https://github.com/axiijs/axii">
-            <div>GITHUB</div>
+                <div>
+                    <h2>API</h2>
+                    <p>All API definitions with types.</p>
+                </div>
+            </a>
+            <a href="https://github.com/axiijs/axii" aria-label="Visit Axii GitHub Repository">
+                <div>GITHUB</div>
+                <div>
+                    <h2>GitHub</h2>
+                    <p>"Talk is cheap, show me the code!"</p>
+                </div>
+            </a>
+        </nav>
+    </main>
 
-            <div>
-                <div>GitHub</div>
-                <div>"Talk is cheap, show me the code!"</div>
-            </div>
-        </a>
-    </div>
-</div>
-
+    <!-- Structured Data for better SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Axii",
+        "applicationCategory": "Frontend Framework",
+        "description": "A high-performance reactive frontend framework with precise DOM updates, automatic incremental computation, and pure JSX syntax",
+        "url": "https://axiijs.github.io",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </body>
 </html>
