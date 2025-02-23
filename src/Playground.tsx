@@ -245,6 +245,7 @@ export function Playground({locale = 'en'} , {useLayoutEffect}: RenderContext) {
                         <img src={'/logos/axii-logo-white.svg'} width={40}/>
                     </a>
                     <a style={{...common.link}} href={'https://axii.dev/reference'}>Reference</a>
+                    <a style={{...common.link}} href={'https://ui.axii.dev'}>UI</a>
                     <a style={{...common.link}} href={'https://github.com/axiijs/axii'}>Github</a>
                 </div>
                 <div>
