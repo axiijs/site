@@ -3,19 +3,19 @@ import {atom, RenderContext} from 'axii'
 export function App({}, { createElement }: RenderContext) {
 
     const style= {
-        // 普通形式，支持 数组
+        // standard form, supports arrays
         margin: 10,
-        // 支持数组形式
+        // supports array format
         padding: [10, 20],
-        // 支持嵌套+伪类
+        // supports nesting + pseudo-classes
         '&:hover': {
             background:'blue'
         },
-        // 支持嵌套
+        // supports nesting
         '& span': {
             color: 'white'
         },
-        // 支持 @ rule
+        // supports @ rules
         '@keyframes': {
             from: { transform: 'rotate(0deg)' },
             to: { transform: 'rotate(359deg)' }
@@ -25,7 +25,7 @@ export function App({}, { createElement }: RenderContext) {
         transformOrigin: 'center center',
     }
 
-    // TODO 通过数组实现开始形式的 transition
+    // TODO implement transition in array format
 
     return <div style={style}><span>in component</span></div>
 }

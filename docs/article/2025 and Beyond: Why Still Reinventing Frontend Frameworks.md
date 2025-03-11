@@ -1,60 +1,60 @@
 # 2025 and Beyond: Why Still Reinventing Frontend Frameworks?
 
-在完全不需要人类编程之前，我们仍然需要人类来审查和维护 AI 生成的代码。一个设计良好的前端框架不仅能降低人类的认知负担，还能提升 AI 生成代码的质量。让我们来看看 Axii 是如何在这个时代带来创新的。
+In order to review and maintain AI-generated code before humans are completely out of the loop, we still need humans to do so. A well-designed frontend framework not only reduces the cognitive burden of humans but also improves the quality of AI-generated code. Let's take a look at how Axii is innovating in this era.
 
-## 为常见场景提供优雅抽象
+## Providing Elegant Abstractions for Common Scenarios
 
-在前端开发中，我们经常需要处理 DOM 状态、选择逻辑等场景。Axii 默认提供了多种优雅的抽象：
-### 响应式 DOM 状态
-不同于传统框架需要手动监听 DOM 事件，Axii 提供了内置的响应式 DOM 状态封装：
+In frontend development, we often need to handle scenarios such as DOM state and selection logic. Axii provides multiple elegant abstractions by default:
+### Responsive DOM State
+Unlike traditional frameworks that require manual DOM event listening, Axii provides built-in responsive DOM state encapsulation:
 
-- RxDOMSize      // 元素尺寸
-- RxDOMRect      // 元素位置
-- RxDOMDragPosition // 拖拽位置
-- RxDOMScrollPosition // 滚动位置
+- RxDOMSize      // element size
+- RxDOMRect      // element position
+- RxDOMDragPosition // drag position
+- RxDOMScrollPosition // scroll position
 
-### 高性能的选择管理
-Axii 提供了开箱即用的单选和多选工具，确保选择状态变化时只更新必要的部分，始终保持高性能。
+### High-Performance Selection Management
+Axii provides out-of-the-box single and multi-selection tools to ensure that only the necessary parts are updated when the selection state changes, while maintaining high performance.
 
-## 创新的组件复用方案
-Axii 最令人兴奋的创新之一是 Component AOP 技术。这项技术彻底改变了组件的复用方式：
+## Innovative Component Reuse Scheme
+One of the most exciting innovations of Axii is Component AOP technology. This technology completely changes the way components are reused:
 
 ```jsx
 function App({}, { createElement }) {
     const name = atom('world')
     return (
         <Child
-            // 直接配置内部 DOM 样式
+            // directly configure internal DOM styles
             $root:style={{ display: 'flex', flexDirection: 'column' }}
-            // 绑定响应式数据
+            // bind reactive data
             $main:value={name}
-            // 自定义样式合并逻辑
+            // custom style merging logic
             $main:style_={() => ({ border: '1px solid black' })}
         />
     )
 }
 ```
 
-这种方式带来几个重要优势：
+This approach brings several important advantages:
 
-1. 组件维护者不需要预先暴露所有可能的配置项
-2. 使用者可以直接"穿透"到内部元素进行定制
-3. 完美支持从设计工具导入样式，同时保留样式的动态能力
+1. Component maintainers do not need to expose all possible configuration items in advance
+2. Users can directly "penetrate" to customize internal elements
+3. Perfectly supports importing styles from design tools while retaining dynamic capabilities
 
-## 突破性的性能优化
+## Breakthrough Performance Optimization
 
-Axii 在响应式数据结构上有重大创新。当依赖发生变化时，它不会完全重新计算，而是自动使用增量计算更新。这在数组操作等场景中带来了显著的性能提升。
+Axii has made significant innovations in its responsive data structure. When dependencies change, it does not recalculate completely but automatically uses incremental calculation to update. This brings significant performance improvements in scenarios such as array operations.
 
-## 面向未来的渲染技术
+## Future Rendering Technology
 
-Axii 的一个重要特点是没有使用 Virtual DOM，也不需要复杂的编译工具。它通过最直接的方式实现了响应式，并且与其他基于 DOM 的工具和标准完全兼容。这个设计选择基于对未来的深刻洞察：
-- 浏览器正在不断提供更好的原生抽象
-- Web 标准在快速迭代
-- 许多框架层的功能终将被浏览器原生能力取代
+One of the important features of Axii is that it does not use Virtual DOM and does not require complex compilation tools. It implements responsiveness through the most direct way and is fully compatible with other DOM-based tools and standards. This design choice is based on profound insights into the future:
+- Browsers are constantly providing better native abstractions
+- Web standards are iterating quickly
+- Many framework layer functions will eventually be replaced by native browser capabilities
 
-## 总结
+## Summary
 
-在 2025 年的今天，Axii 展现了一个前端框架应有的创新。它不仅提供了优雅的抽象和卓越的性能，更重要的是它的设计理念完全符合未来发展趋势。无论是用于人工编码还是 AI 辅助开发，Axii 都能显著提升开发效率和代码质量。
-对于想要在 2025 年保持技术领先的开发者来说，Axii 绝对值得投入时间学习。它不仅能帮助你写出更好的代码，还能帮助你更好地理解前端开发的未来方向。
+Today, Axii shows an innovative frontend framework. It not only provides elegant abstractions and excellent performance but also fully aligns with the future development trend. Whether used for manual coding or AI-assisted development, Axii can significantly improve development efficiency and code quality.
+For developers who want to maintain technical leadership in 2025, Axii is definitely worth investing time in learning. It not only helps you write better code but also helps you better understand the future direction of frontend development.
 
 

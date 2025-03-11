@@ -3,27 +3,27 @@ import {atom, autorun, once, RenderContext} from 'axii'
 export function App({}, { createElement, useEffect, useLayoutEffect, createRef, createRxRef }: RenderContext) {
 
     const title = atom('world')
-    // 说明 autorun 默认在 next micro task 中执行
+    // autorun executes in the next micro task by default
     autorun(() => {
-        // 修改浏览器标题
+        // modify browser title
         document.title = `hello ${title()}`
     })
 
     once(() => {
-        // return true 的时候就不执行了
+        // when returning true, it will not execute again
     })
 
     useEffect(() => {
-        // 一开始就执行
+        // executes at the beginning
         return () => {
-            // 卸载的时候执行
+            // executes when unmounted
         }
     })
 
     useLayoutEffect(() => {
-        // 挂载后就执行
+        // executes after mounting
         return () => {
-            // 卸载的时候执行
+            // executes when unmounted
         }
     });
 
