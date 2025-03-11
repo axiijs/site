@@ -28,4 +28,4 @@ coverage
 .next
 package-lock.json
 playground
-
+dist
